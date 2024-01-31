@@ -150,7 +150,7 @@ margin-left: .8em;
 .start .start-display .input-bar input[type=text] {
     border: none;
     outline: none;
-    height: 95%;
+    height: inherit;
     margin-left: 2em;
     font-size: 15px;
     text-transform: capitalize;
