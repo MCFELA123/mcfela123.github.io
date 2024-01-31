@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-adsense-account" content="ca-pub-7161629677556667">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js"></script>
     <link rel="shortcut icon" href="./icon-48x48.png" type="image/x-icon">
@@ -17,15 +16,55 @@
 </head>
 <body>
     <div class="body-container">
-Please wait while we load content for you. (Website repair in progress)...
-
+<input type="text">
+please wait...
     </div>
 
+<div class="contextmenu" id="contextmenu" hidden>
 
+</div>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7161629677556667"
-     crossorigin="anonymous">
-    (adsbygoogle = window.adsbygoogle || []).push({});
-     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7161629677556667"
+    crossorigin="anonymous">
+
+</script>
+
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+       window.onbeforeunload = function() {
+    return "Dude, are you sure you want to leave? Think of the kittens!";
+}
+
+function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
+
+$(document).ready(function(){
+     $(document).on("keydown", disableF5);
+});
+
+var bc = new BroadcastChannel('test_channel');
+
+bc.onmessage = function (ev) { 
+    if(ev.data && ev.data.url===window.location.href){
+       alert('You cannot open the same page in 2 tabs');
+    }
+}
+
+bc.postMessage(window.location.href);
+
+var url = window.location.pathname.toLowerCase();
+if (url.includes("manufacturers/ford")) {
+    window.addEventListener(
+        "pagehide",
+        (event) => {
+            if (event.persisted) {
+                // The page is about to close
+                // Show a confirmation modal, return or similar
+            }
+        },
+        false
+    );
+}
+</script>
 </body>
 </html>
