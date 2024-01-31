@@ -21,7 +21,7 @@ body {
     top: 0;
     left: 0;
     transition: 0.3s;
-    background: rgb(10, 10, 10);
+    background: rgb(9, 9, 9);
 }
 
 .start {
@@ -39,7 +39,7 @@ body {
 .start .start-display {
     width: 31em;
     border-radius: 7px;
-    background: rgb(35, 35, 35);
+    background: rgb(33, 33, 33);
 }
 
 .start .start-display .top-pagination {

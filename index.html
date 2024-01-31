@@ -34,7 +34,7 @@ Routes
 <input type="text" placeholder="Your name" id="name" oncontextmenu="copy()">
 </div>
 <div class="bottom-pagination">
-<span>Don't want to use your name?</span>
+<span oncontextmenu="link()">Don't want to use your name?</span>
 <div class="comp">
     <button></button>
     <button class="android"></button>
@@ -77,6 +77,13 @@ document.getElementById("contextmenu").innerHTML = '<li>Copy</li>';
 function save() {
 document.getElementById("contextmenu").innerHTML = '<li>Save image</li>';
 }
+
+
+
+function link() {
+document.getElementById("contextmenu").innerHTML = '<li>Open in new window</li>';
+}
+
 /*(adsbygoogle = window.adsbygoogle || []).push({});
 
        window.onbeforeunload = function() {
