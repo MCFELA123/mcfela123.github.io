@@ -15,13 +15,51 @@
     <title>Routes</title>
 </head>
 <body>
-    <div class="body-container">
-<input type="text">
-please wait...
+    <div class="body-container" id="body-container">
+Routes
+<div class="start">
+    <div class="start-display">
+   <div class="d001">
+    <div class="top-pagination">
+        <span>Back</span>
+        <span>Next</span>
+    </div>
+    <div class="mc01">
+        <text>Route</text><br>
+        <text>please enter your name or nickname to continue to Route.</text>
+    </div>
+<div class="input-bar">
+<label for="name">Name</label>
+<input type="text" placeholder="Your name" id="name" oncontextmenu="copy()">
+</div>
+<div class="bottom-pagination">
+<span>Don't want to use your name?</span>
+<div class="comp">
+    <button></button>
+    <button class="android"></button>
+    <button class="windows"></button>
+    <button class="microsoft"></button>
+    <button class="web"></button>
+</div>
+<br>
+<span>Route will use this name identify you in ths app.</span>
+<br><br>
+<img src="/poeple.png" width="30" alt="people" oncontextmenu="save()">
+<p>Your information is used to enable route services when you login, including RouteCloud, which automatically backsup your data in case you need to replace or restore it. Your user ID may be used to check eligibility for service offers.</p>
+</div>
+   </div>
+   <br><br>
+    </div>
+</div>
+
     </div>
 
-<div class="contextmenu" id="contextmenu" hidden>
-
+<div class="contextmenu" id="contextmenu">
+<li>Home</li>
+<li>Search</li>
+<li>Bookmarks</li>
+<li>Profile</li>
+<li>Settings</li>
 </div>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7161629677556667"
@@ -29,14 +67,22 @@ please wait...
 
 </script>
 
+
 <script>
-(adsbygoogle = window.adsbygoogle || []).push({});
+function copy() {
+document.getElementById("contextmenu").innerHTML = '<li>Copy</li>';
+}
+
+function save() {
+document.getElementById("contextmenu").innerHTML = '<li>Save image</li>';
+}
+/*(adsbygoogle = window.adsbygoogle || []).push({});
 
        window.onbeforeunload = function() {
     return "Dude, are you sure you want to leave? Think of the kittens!";
 }
 
-function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
+function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault();};
 
 $(document).ready(function(){
      $(document).on("keydown", disableF5);
@@ -65,6 +111,12 @@ if (url.includes("manufacturers/ford")) {
         false
     );
 }
+
+setInterval(function(){
+  window.location.reload();
+  window.stop();
+},100)*/
 </script>
+
 </body>
 </html>

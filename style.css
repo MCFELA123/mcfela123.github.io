@@ -3,9 +3,15 @@ html, body {
   }
 
 body {
-    display: flex;
+    overflow: hidden;
+    font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     justify-content: center;
     background: white;
+    cursor: default;
+    user-select: none;
+    user-zoom: none;
+    -webkit-user-drag: none;
+    color: rgb(255, 255, 255);
 }
 
 .body-container {
@@ -13,7 +19,261 @@ body {
     height: 100%;
     position: fixed;
     top: 0;
+    left: 0;
+    transition: 0.3s;
+    background: rgb(10, 10, 10);
+}
+
+.start {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(5, 5, 5, 0.535);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start .start-display {
+    width: 31em;
+    border-radius: 7px;
+    background: rgb(35, 35, 35);
+}
+
+.start .start-display .top-pagination {
+    width: inherit;
+    height: 2em;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.start .start-display .bottom-pagination {
+    width: inherit;
+    height: 20em;
+    font-size: 15px;
+    padding-top: .7em;
+    letter-spacing: 0.3px;
+    text-align: center;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
+
+.start .start-display .bottom-pagination span:first-child {
+    color: rgb(0, 123, 255);
+    cursor: pointer;
+}
+
+.start .start-display .bottom-pagination span:last-child {
+    font-size: 16px;
+    letter-spacing: .5px;
+}
+
+.start .start-display .bottom-pagination .comp {
+    margin-top: 2.5em;
+}
+
+.start .start-display .bottom-pagination .comp button {
+width: 3.3em;
+height: 3.3em;
+background-size: cover !important;
+background-position: center !important;
+border: none;
+background: rgb(43, 43, 43);
+border-radius: .65em;
+margin-left: 2em;
+}
+
+.start .start-display .bottom-pagination .comp button:first-child {
+    margin-left: 0;
+    background-image: url(/apple.jpg);
+}
+
+.start-display .bottom-pagination p {
+    font-size: 12px;
+    width: 90%;
+    margin-top: 1em !important;
+    margin: 0 auto;
+    margin-top: -.3em !important;
+    color: rgb(126, 126, 126);
+}
+
+.start-display .top-pagination span:first-child {
+    float: left;
+    margin-left: 1.2em;
+    margin-top: 13px;
+    color: rgb(86, 86, 86);
+}
+
+.start .start-display .top-pagination span:last-child {
+    float: right;
+    margin-right: 1.2em;
+    margin-top: 13px;
+    cursor: pointer;
+    color: rgb(0, 123, 255);
+}
+
+.start .start-display .mc01 {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.start .start-display .mc01 text:first-child {
+    font-size: 33px;
+}
+
+.start .start-display .mc01 text:last-child {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: .5px;
+}
+
+.start .start-display .input-bar {
+    width: 100%;
+    height: 3em;
+    margin-top: 2em;
+    display: flex;
+    align-items: center;
+    border-top: .5px solid rgb(49, 49, 49);
+    border-bottom: .5px solid rgb(49, 49, 49);
+    background: rgb(44, 44, 44);
+}
+
+.start .start-display .input-bar label {
+transform: translateY(-2px);
+margin-left: .8em;
+}
+
+.start .start-display .input-bar input[type=text] {
+    border: none;
+    outline: none;
+    height: 95%;
+    margin-left: 2em;
+    font-size: 15px;
+    text-transform: capitalize;
+    letter-spacing: .5px;
+    cursor: pointer;
     color: white;
-    font-family: system-ui;
-    background: rgb(15, 15, 15);
+    width: inherit;
+    background: inherit;
+}
+
+.start .start-display .input-bar input:focus::placeholder {
+text-indent: 5px;
+}
+
+.start .start-display .input-bar input[type=text]::placeholder {
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.5, 0.8, .2, 0.99) 0s, background 0s ease 0s;
+    color: rgb(91, 91, 91);
+}
+
+.contextmenu {
+    width: 200px;
+    padding: 5px;
+    background: rgb(37, 37, 37);
+    position: relative;
+    border-radius: 7px;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 0 13px 0 rgba(22, 22, 22, 0.201);
+}
+
+.none {
+    width: 200px;
+    padding: 5px;
+    background: rgb(37, 37, 37);
+    position: relative;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 0 13px 0 rgba(22, 22, 22, 0.201);
+}
+
+.block {
+    width: 200px;
+    padding: 5px;
+    background: rgb(37, 37, 37);
+    position: relative;
+    border-radius: 7px;
+    visibility: visible;
+    opacity: 1;
+    box-shadow: 0 0 13px 0 rgba(22, 22, 22, 0.201);
+}
+
+.contextmenu li:first-child {
+    margin-top: 0;
+}
+
+.none li:first-child {
+    margin-top: 0;
+}
+
+.block li:first-child {
+    margin-top: 0;
+}
+
+.contextmenu li{
+    list-style: none;
+    width: inherit;
+    line-height: 2.5em;
+    text-indent: 1em;
+    height: 2.5em;
+    border-radius: 3px;
+    margin-top: 5px;
+
+}
+
+.none li{
+    list-style: none;
+    width: inherit;
+    line-height: 2.5em;
+    text-indent: 1em;
+    height: 2.5em;
+    border-radius: 3px;
+    margin-top: 5px;
+
+}
+
+.block li{
+    list-style: none;
+    width: inherit;
+    line-height: 2.5em;
+    text-indent: 1em;
+    height: 2.5em;
+    border-radius: 3px;
+    margin-top: 5px;
+
+}
+
+.contextmenu li:hover {
+    background: rgb(42, 42, 42);
+}
+
+.none li:hover {
+    background: rgb(42, 42, 42);
+}
+
+.block li:hover {
+    background: rgb(42, 42, 42);
+}
+
+.android {
+    background-image: url(./android.jpg) !important;   
+}
+
+.windows {
+    background-image: url(./windows.webp) !important;   
+}
+
+.microsoft {
+    background-image: url(./microsoft.jpeg) !important;   
+}
+
+.web {
+    background-image: url(./web.avif) !important;   
 }
