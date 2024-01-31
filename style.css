@@ -6,7 +6,8 @@ body {
     display: flex;
     justify-content: center;
     background: white;
-    color: rgb(0, 0, 0);
+    color: white;
+    font-family: system-ui;
 }
 
 .body-container {
