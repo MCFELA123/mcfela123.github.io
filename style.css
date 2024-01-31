@@ -158,7 +158,7 @@ margin-left: .8em;
     cursor: pointer;
     color: white;
     width: inherit;
-    background: inherit;
+    background: none;
 }
 
 .start .start-display .input-bar input:focus::placeholder {
