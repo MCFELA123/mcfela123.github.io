@@ -40,7 +40,7 @@ body {
     width: 31em;
     height: 34em;
     border-radius: 7px;
-    background: rgb(33, 33, 33);
+    background: rgb(33, 32, 32);
 }
 
 .start .start-display .top-pagination {
@@ -64,7 +64,7 @@ body {
 }
 
 .start .start-display .bottom-pagination span:first-child {
-    color: rgb(0, 72, 255);
+    color: rgb(0, 123, 255);
     cursor: pointer;
 }
 
@@ -108,8 +108,13 @@ margin-left: 2em;
     margin-top: 1em !important;
     margin: 0 auto;
     margin-top: -.3em !important;
-    color: rgb(0, 72, 255);
+    color: rgb(0, 123, 255);
     cursor: pointer;
+}
+
+.start-display .top-pagination span {
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .start-display .top-pagination span:first-child {
@@ -124,7 +129,7 @@ margin-left: 2em;
     margin-right: 1.2em;
     margin-top: 13px;
     cursor: pointer;
-    color: rgb(0, 72, 255);
+    color: rgb(0, 123, 255);
 }
 
 .start .start-display .mc01 {
@@ -194,16 +199,16 @@ text-indent: 5px;
     color: white;
     font-size: 17px;
     letter-spacing: .35px;
-    box-shadow: 0 4px 10px -4px rgba(0, 72, 255, 0.546);
+    box-shadow: 0 3.5px 10px -4.5px rgba(0, 123, 255, 0.798);
     backdrop-filter: blur(2em);
     text-align: center;
     cursor: pointer;
-    background: rgb(0, 55, 255);
+    background: rgb(0, 123, 255);
     transition: .2s ease;
 }
 
 #d002 button:hover {
-    background: rgba(0, 72, 255, 0.305);
+    background: rgba(0, 123, 255, 0.608);
     backdrop-filter: blur(2em);
     color: rgba(255, 255, 255, 0.459);
 }
@@ -350,6 +355,34 @@ text-indent: 5px;
     transform: translateX(0);
     opacity: 1;
     visibility: visible;
+}
+
+#name-inputed {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+#route {
+    width: 3.5em;
+    scale: 0;
+    transition: all .8s cubic-bezier(0.5, 0.8, .2, 1.35) 0s, background 0s ease 0s;
+    padding-bottom: .7em;
+}
+
+.animate {  
+    scale: 1 !important;
+
+}
+
+@keyframes rote {
+    50%{
+        scale: 1 !important;
+        transform: rotate(10deg);
+    }
+    100% {
+        scale: 1 !important;
+        transform: rotate(30deg);
+    }
 }
 
 .shake {

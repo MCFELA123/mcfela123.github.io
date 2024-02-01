@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://github.com/MCFELA123/MCFELA123.github.io/blob/main/style.css">
     <script src="/script.js"></script>
     <link rel="shortcut icon" href="./icon-48x48.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://github.com/MCFELA123/MCFELA123.github.io/blob/main/icon-48x48.png?raw=true" type="image/x-icon">
     <script src="/manifest.js"></script>
     <script src="/sw.js"></script>
     <script src="/app.js"></script>
@@ -54,11 +55,15 @@ Routes
 
     <div class="d002" id="d002">
         <div class="mc01">
-            <text id="name-inputed"></text><br>
+            <br>
+            <img src="/default-img.png" alt="" width="" id="route">
+            <br>
+            <text id="name-inputed"></text>
+            <br>
             <text>Welcome to Route!</text>
         </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br>
-        <button>Start exploring</button>
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <button>Continue</button>
     </div>
 
     <br><br>
@@ -111,9 +116,14 @@ function previous() {
     var next = document.getElementById("next");
 
 if(contin) {
-setTimeout(retun, 800)
-setTimeout(pause, 300)
+setTimeout(retun, 800);
+setTimeout(pause, 300);
+setTimeout(animatFalse, 1000)
  
+ function animatFalse() {
+ document.getElementById("route").className = 'route';
+}
+
 
 function retun() {
 d001.className = 'd001';
@@ -143,7 +153,12 @@ function contin() {
     setTimeout(none01, 400);
 setTimeout(bak, 600)
     setTimeout(right, 800);
-    
+    setTimeout(animat, 1000)
+ 
+    function animat() {
+    document.getElementById("route").className = 'animate';
+}
+
 
     function none01() {
         d001.style.display = 'none';
@@ -155,7 +170,7 @@ setTimeout(bak, 600)
 
     function bak() {
         document.getElementById("name-inputed").innerHTML = 'Hi ' + document.getElementById("name").value;
-        back.style.color = 'rgb(0, 72, 255)';
+        back.style.color = 'rgb(0, 123, 255)';
         back.style.cursor = 'pointer';
     }
 }
