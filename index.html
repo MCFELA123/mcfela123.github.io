@@ -15,41 +15,53 @@
     <link rel="manifest" href="/manifest.json">
     <title>Routes</title>
 </head>
-<body>
+<body id="body">
     <div class="body-container" id="body-container">
 Routes
 <div class="start">
     <div class="start-display">
-   <div class="d001">
+
     <div class="top-pagination">
-        <span>Back</span>
-        <span>Next</span>
+        <span id="back">Back</span>
+        <span id="next">Next</span>
     </div>
+    <div class="d001" id="d001">  
     <div class="mc01">
         <text>Route</text><br>
         <text>please enter your name or nickname to continue to Route.</text>
     </div>
-<div class="input-bar">
-<label for="name">Name</label>
-<input type="text" placeholder="Your name" id="name" oncontextmenu="copy()">
-</div>
-<div class="bottom-pagination">
-<span oncontextmenu="link()">Don't want to use your name?</span>
-<div class="comp">
+    <div class="input-bar">
+    <label for="name">Name</label>
+    <input type="text" placeholder="Your name" id="name" oncontextmenu="copy()">
+    </div>
+    <div class="bottom-pagination">
+    <span oncontextmenu="link()">Don't want to use your name?</span>
+    <div class="comp">
     <button></button>
     <button class="android"></button>
     <button class="windows"></button>
     <button class="microsoft"></button>
     <button class="web"></button>
-</div>
-<br>
-<span>Route will use this name identify you in ths app.</span>
-<br><br>
-<img src="/poeple.png" width="30" alt="people" oncontextmenu="save()">
-<p>Your information is used to enable route services when you login, including RouteCloud, which automatically backsup your data in case you need to replace or restore it. Your user ID may be used to check eligibility for service offers.</p>
-</div>
-   </div>
-   <br><br>
+    </div>
+    <br>
+    <span>Route will use this name identify you in ths app.</span>
+    <br><br>
+    <img src="/poeple.png" width="30" alt="people" oncontextmenu="save()">
+    <p>Your information is used to enable route services when you login, including RouteCloud, which automatically backsup your data in case you need to replace or restore it. Your user ID may be used to check eligibility for service offers.</p>
+    <a oncontextmenu="link()">See how your data is managed.</a>
+    </div>
+    </div>
+
+    <div class="d002" id="d002">
+        <div class="mc01">
+            <text id="name-inputed"></text><br>
+            <text>Welcome to Route!</text>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <button>Start exploring</button>
+    </div>
+
+    <br><br>
     </div>
 </div>
 
@@ -63,6 +75,11 @@ Routes
 <li>Settings</li>
 </div>
 
+
+
+
+
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7161629677556667"
     crossorigin="anonymous">
 
@@ -70,6 +87,82 @@ Routes
 
 
 <script>
+
+document.getElementById("next").onclick = foward;
+document.getElementById("back").onclick = previous;
+
+
+
+function foward() {
+var input = document.getElementById("name");
+
+if(input.value == "") {
+    input.className = 'shake';
+}
+else {
+    contin();
+}
+}
+
+function previous() {
+    var d001 = document.getElementById("d001");
+    var d002 = document.getElementById("d002");
+    var back = document.getElementById("back");
+    var next = document.getElementById("next");
+
+if(contin) {
+setTimeout(retun, 800)
+setTimeout(pause, 300)
+ 
+
+function retun() {
+d001.className = 'd001';
+}
+
+function pause() {
+    d001.style.display = 'block';
+    back.style.color = 'rgb(86, 86, 86)';
+    back.style.cursor = 'default';
+}
+
+ d002.className = 'd002';
+}
+else {
+false;
+}
+}
+
+function contin() {
+    var d001 = document.getElementById("d001");
+    var d002 = document.getElementById("d002");
+    var back = document.getElementById("back");
+    var next = document.getElementById("next");
+
+
+    d001.className = 'left';
+    setTimeout(none01, 400);
+setTimeout(bak, 600)
+    setTimeout(right, 800);
+    
+
+    function none01() {
+        d001.style.display = 'none';
+    }
+
+    function right() {
+          d002.className = 'right';
+    }
+
+    function bak() {
+        document.getElementById("name-inputed").innerHTML = 'Hi ' + document.getElementById("name").value;
+        back.style.color = 'rgb(0, 72, 255)';
+        back.style.cursor = 'pointer';
+    }
+}
+
+
+
+
 function copy() {
 document.getElementById("contextmenu").innerHTML = '<li>Copy</li>';
 }

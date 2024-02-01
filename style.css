@@ -38,6 +38,7 @@ body {
 
 .start .start-display {
     width: 31em;
+    height: 34em;
     border-radius: 7px;
     background: rgb(33, 33, 33);
 }
@@ -63,7 +64,7 @@ body {
 }
 
 .start .start-display .bottom-pagination span:first-child {
-    color: rgb(0, 123, 255);
+    color: rgb(0, 72, 255);
     cursor: pointer;
 }
 
@@ -92,13 +93,23 @@ margin-left: 2em;
     background-image: url(/apple.jpg);
 }
 
-.start-display .bottom-pagination p {
+.start .start-display .bottom-pagination p {
     font-size: 12px;
     width: 90%;
     margin-top: 1em !important;
     margin: 0 auto;
     margin-top: -.3em !important;
     color: rgb(126, 126, 126);
+}
+
+.start .start-display .bottom-pagination a {
+    font-size: 12px;
+    width: 90%;
+    margin-top: 1em !important;
+    margin: 0 auto;
+    margin-top: -.3em !important;
+    color: rgb(0, 72, 255);
+    cursor: pointer;
 }
 
 .start-display .top-pagination span:first-child {
@@ -113,7 +124,7 @@ margin-left: 2em;
     margin-right: 1.2em;
     margin-top: 13px;
     cursor: pointer;
-    color: rgb(0, 123, 255);
+    color: rgb(0, 72, 255);
 }
 
 .start .start-display .mc01 {
@@ -123,6 +134,7 @@ margin-left: 2em;
 
 .start .start-display .mc01 text:first-child {
     font-size: 33px;
+    text-transform: capitalize;
 }
 
 .start .start-display .mc01 text:last-child {
@@ -172,9 +184,38 @@ text-indent: 5px;
     color: rgb(91, 91, 91);
 }
 
+#d002 button {
+    padding: .65em;
+    display: grid;
+    margin: 0 auto;
+    border: none;
+    width: 40%;
+    border-radius: .6em;
+    color: white;
+    font-size: 17px;
+    letter-spacing: .35px;
+    box-shadow: 0 4px 10px -4px rgba(0, 72, 255, 0.546);
+    backdrop-filter: blur(2em);
+    text-align: center;
+    cursor: pointer;
+    background: rgb(0, 55, 255);
+    transition: .2s ease;
+}
+
+#d002 button:hover {
+    background: rgba(0, 72, 255, 0.305);
+    backdrop-filter: blur(2em);
+    color: rgba(255, 255, 255, 0.459);
+}
+
+#d002 button:active {
+    box-shadow: none;
+    scale: 0.98;
+}
+
 .contextmenu {
     width: 200px;
-    padding: 5px;
+    padding: 7px;
     background: rgb(37, 37, 37);
     position: relative;
     border-radius: 7px;
@@ -185,7 +226,7 @@ text-indent: 5px;
 
 .none {
     width: 200px;
-    padding: 5px;
+    padding: 7px;
     background: rgb(37, 37, 37);
     position: relative;
     border-radius: 5px;
@@ -196,7 +237,7 @@ text-indent: 5px;
 
 .block {
     width: 200px;
-    padding: 5px;
+    padding: 7px;
     background: rgb(37, 37, 37);
     position: relative;
     border-radius: 7px;
@@ -276,4 +317,78 @@ text-indent: 5px;
 
 .web {
     background-image: url('https://img.freepik.com/premium-vector/blue-square-with-globe-icon-it_876006-15.jpg') !important;   
+}
+
+.d001 {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.5, 0.8, .2, 0.99) 0s, background 0s ease 0s;
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+ 
+}
+
+.left {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.5, 0.8, .2, 0.99) 0s, background 0s ease 0s;
+    transform: translateX(-.5em);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.d002 {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.5, 0.8, .2, 0.99) 0s, background 0s ease 0s;
+    transform: translateX(.5em);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.right {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.5, 0.8, .2, 0.99) 0s, background 0s ease 0s;
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.shake {
+    animation-name: shake;
+    animation-duration: .9s;
+}
+
+@keyframes shake {
+    0%{
+        transform: translateX(-5px);
+    }
+    10%{
+        transform: translateX(5px);
+    }
+    20%{
+        transform: translateX(-5px);
+    }
+    30%{
+        transform: translateX(5px);
+    }
+    40%{
+        transform: translateX(-5px);
+    }
+    50%{
+        transform: translateX(5px);
+    }
+    60%{
+        transform: translateX(-5px);
+    }
+    70%{
+        transform: translateX(5px);
+    }
+    80%{
+        transform: translateX(-5px);
+    }
+    90%{
+        transform: translateX(5px);
+    }
+    100%{
+        transform: translateX(0);
+    }
 }
