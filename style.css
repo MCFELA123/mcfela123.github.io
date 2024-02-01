@@ -190,11 +190,11 @@ text-indent: 5px;
 }
 
 #d002 button {
-    padding: .65em;
+    padding: .6em;
     display: grid;
     margin: 0 auto;
     border: none;
-    width: 40%;
+    width: 45%;
     border-radius: .6em;
     color: white;
     font-size: 17px;
