@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://github.com/MCFELA123/MCFELA123.github.io/blob/main/style.css">
     <script src="/script.js"></script>
     <link rel="shortcut icon" href="/default-img.png" type="image/x-icon">
     <script src="/manifest.js"></script>
@@ -90,6 +91,10 @@ Routes
 
 
 <script>
+
+if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('sw.js')
+  }
 
 document.getElementById("next").onclick = foward;
 document.getElementById("back").onclick = previous;
