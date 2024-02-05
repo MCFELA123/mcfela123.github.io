@@ -21,7 +21,22 @@ body {
     top: 0;
     left: 0;
     transition: 0.3s;
-    background: rgb(9, 9, 9);
+    background: #090909;
+}
+
+.bg {
+    width: 100%;
+    height: 16em;
+    background-image: url(/pat.png);
+    background-size: cover;
+    transform: rotateY(180deg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -99;
+    position: absolute;
+
+    
 }
 
 .start {
@@ -30,7 +45,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(5, 5, 5, 0.535);
+    background: rgba(5, 5, 5, 0.874);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,8 +55,162 @@ body {
     width: 31em;
     height: 34em;
     border-radius: 7px;
-    background: rgb(29, 29, 30);
+    background: rgb(25, 25, 26);
+    transition: .25s ease;
+
 }
+
+.body-container .dashboard {
+width: 100%;
+height: 100%;
+
+background: #090909cf;
+backdrop-filter: blur(.7em);
+}
+
+.dashboard .main-content {
+    width: 90%;
+    margin: 0 auto;
+
+}
+
+.dashboard .main-content {
+    width: 90%;
+}
+
+.dashboard .main-content .cadev .cd0 {
+    width: 47%;
+    height: 12em;
+    border-radius: 10px;
+    float: left;
+    margin-left: 2%;
+    background: rgb(25, 25, 26);
+}
+
+.dashboard .main-content .cadev div .inside {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.add {
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 5em;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    color: black;
+}
+
+.add svg path {
+stroke: #0274d87f !important;
+stroke-width: 20;
+fill: none;
+}
+
+.dashboard .main-content .cadev p {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 3px;
+    color: #414141;
+}
+
+.dashboard .user-details {
+    width: 90%;
+    height: 6em;
+    padding-left: .3em;
+    margin: 0 auto;
+}
+
+.dashboard .user-details text {
+    font-size: 35px;
+    text-transform: capitalize;
+}
+
+.dashboard .user-details b {
+    font-weight: 500;
+    color: rgb(114, 114, 114);
+}
+
+.dashboard .user-details .settings {
+    float: right;
+    text-align: center;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(25, 25, 26);
+    cursor: pointer;
+    box-shadow: 4px 6px 30px -6px rgb(0, 0, 0);
+}
+
+.dashboard .user-details .settings svg {
+    fill: white;
+    width: 2em;
+    transform: translateY(4px) scaleY(.87);
+}
+
+.body-container nav {
+    width: 100%;
+    height: 4.5em;
+    box-shadow: 0 -4px 30px -7px rgb(0, 0, 0);
+    background: rgb(25, 25, 26);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    bottom: 0;
+    border-top-left-radius: 1.5em;
+    border-top-right-radius: 1.5em;
+}
+
+.body-container nav button {
+    width: 3.5em;
+    height: 3.5em;
+    margin-left: 10%;
+    border-radius: 3em;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.body-container nav button:hover {
+    background: #262626;
+}
+
+.body-container nav .mid-navigate {
+    background: #262626;
+    scale: 1.1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.body-container nav .mid-navigate:hover {
+    background: white;
+}
+
+.body-container nav .mid-navigate img {
+    width: 1.6em;
+
+}
+
+.body-container nav button svg {
+    width: 1.7em;
+    stroke-width: 2;
+    stroke: white;
+}
+
+.body-container nav button:first-child {
+    margin-left: 0;
+    background: rgb(19, 95, 162);
+}
+
 
 .start .start-display .top-pagination {
     width: inherit;
@@ -221,34 +390,34 @@ text-indent: 5px;
 .contextmenu {
     width: 200px;
     padding: 7px;
-    background: rgb(37, 37, 37);
+    background: rgb(25, 25, 26);
     position: relative;
     border-radius: 7px;
     visibility: hidden;
     opacity: 0;
-    box-shadow: 0 0 13px 0 rgba(22, 22, 22, 0.201);
+    box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
 }
 
 .none {
     width: 200px;
     padding: 7px;
-    background: rgb(37, 37, 37);
+    background: rgb(25, 25, 26);
     position: relative;
     border-radius: 5px;
     visibility: hidden;
     opacity: 0;
-    box-shadow: 0 0 13px 0 rgba(22, 22, 22, 0.201);
+    box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
 }
 
 .block {
     width: 200px;
     padding: 7px;
-    background: rgb(37, 37, 37);
+    background: rgb(25, 25, 26);
     position: relative;
     border-radius: 7px;
     visibility: visible;
     opacity: 1;
-    box-shadow: 0 0 13px 0 rgba(22, 22, 22, 0.201);
+    box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
 }
 
 .contextmenu li:first-child {
@@ -297,15 +466,15 @@ text-indent: 5px;
 }
 
 .contextmenu li:hover {
-    background: rgb(42, 42, 42);
+    background: rgb(34, 34, 34);
 }
 
 .none li:hover {
-    background: rgb(42, 42, 42);
+    background: rgb(34, 34, 34);
 }
 
 .block li:hover {
-    background: rgb(42, 42, 42);
+    background: rgb(34, 34, 34);
 }
 
 .android {
@@ -424,4 +593,10 @@ text-indent: 5px;
     100%{
         transform: translateX(0);
     }
+}
+
+@media(max-width: 600px) {
+.start-display {
+    width: 27em !important;
+}
 }
