@@ -600,6 +600,6 @@ text-indent: 5px;
 
 @media(max-width: 600px) {
 .start-display {
-    width: 90% !important;
+    width: 24em !important;
 }
 }
