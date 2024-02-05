@@ -105,7 +105,6 @@ backdrop-filter: blur(.7em);
 }
 
 .add svg path {
-stroke: #0274d87f !important;
 stroke-width: 20;
 fill: none;
 }
