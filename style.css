@@ -57,8 +57,12 @@ body {
     border-radius: 7px;
     background: rgb(25, 25, 26);
     transition: .25s ease;
-
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
 }
+
+
 
 .body-container .dashboard {
 width: 100%;
@@ -144,7 +148,7 @@ fill: none;
     justify-content: center;
     background: rgb(25, 25, 26);
     cursor: pointer;
-    box-shadow: 4px 6px 30px -6px rgb(0, 0, 0);
+    box-shadow: 4px 6px 30px -8px rgb(0, 0, 0);
 }
 
 .dashboard .user-details .settings svg {

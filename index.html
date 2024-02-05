@@ -81,9 +81,9 @@
 </nav>
 
 
-<!--
-<div class="start">
-    <div class="start-display">
+
+<div class="start" id="start">
+    <div class="start-display" id="start-display">
 
     <div class="top-pagination">
         <span id="back">Back</span>
@@ -126,13 +126,13 @@
             <text>Welcome to Route!</text>
         </div>
         <br><br><br><br><br><br><br><br><br><br><br>
-        <button>Continue</button>
+        <button id="continue">Continue</button>
     </div>
 
     <br><br>
     </div>
 </div>
--->
+
     </div>
 
 <div class="contextmenu" id="contextmenu">
@@ -199,10 +199,23 @@ self.addEventListener('fetch', event => {
 });
 
 
+document.getElementById("continue").onclick = finish;
 document.getElementById("next").onclick = foward;
 document.getElementById("back").onclick = previous;
 
+function finish() {
+    setTimeout(clear, 800)
+    document.getElementById("start-display").style.visibility = 'hidden';
+    document.getElementById("start-display").style.opacity = '.7';
+        document.getElementById("start-display").style.visibility = 'hidden';
+    document.getElementById("start-display").style.opacity = '0';
+    document.getElementById("start-display").style.transform = 'translateY(10em)';
 
+function clear() {
+    document.getElementById("user-details").innerHTML =     document.getElementById("name").value;
+    document.getElementById("start").style.display = 'none';
+}
+}
 
 function foward() {
 var input = document.getElementById("name");
