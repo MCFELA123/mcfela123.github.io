@@ -27,7 +27,7 @@ body {
 .bg {
     width: 100%;
     height: 16em;
-    background-image: url(/pat.png);
+    background-image: url(/airplane.png);
     background-size: cover;
     transform: rotateY(180deg);
     background-position: center;
@@ -212,7 +212,7 @@ fill: none;
 
 .body-container nav button:first-child {
     margin-left: 0;
-    background: rgb(19, 95, 162);
+    background: rgb(15, 65, 182);
 }
 
 
