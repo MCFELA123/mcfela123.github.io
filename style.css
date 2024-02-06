@@ -67,13 +67,14 @@ body {
 .body-container .dashboard {
 width: 100%;
 height: 100%;
-
 background: #090909cf;
 backdrop-filter: blur(.7em);
 }
 
 .dashboard .main-content {
     width: 90%;
+    height: 60%;
+    
     margin: 0 auto;
 
 }
@@ -117,7 +118,7 @@ fill: none;
     font-size: 16px;
     margin-top: 10px;
     margin-left: 3px;
-    color: #414141;
+    color: #5c5c5c;
 }
 
 .dashboard .user-details {
