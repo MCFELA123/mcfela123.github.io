@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
 <div class="dashboard">
     <br><br>
     <div class="user-details">
-        <text>Hi <b id="user-details">Michael</b></text>
+        <text>Hi <b id="user-details">.........</b></text>
 
         <span class="settings">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:serif="http://www.serif.com/" viewBox="-1.5 0 26 40"><path d="M15.006,7.159c-1.164,0.412 -2,1.523 -2,2.829c0,1.305 0.836,2.417 2,2.829l0,14.183c0,0.552 0.448,1 1,1c0.552,0 1,-0.448 1,-1l0,-14.183c1.165,-0.412 2,-1.524 2,-2.829c0,-1.306 -0.835,-2.417 -2,-2.829l0,-2.171c0,-0.552 -0.448,-1 -1,-1c-0.552,-0 -1,0.448 -1,1l0,2.171Z"/><path d="M6,19.176c-1.157,0.416 -1.986,1.524 -1.986,2.824c-0,1.3 0.829,2.408 1.986,2.824l0,2.176c-0,0.552 0.448,1 1,1c0.552,0 1,-0.448 1,-1l0,-2.166c1.172,-0.408 2.014,-1.524 2.014,-2.834c-0,-1.31 -0.842,-2.426 -2.014,-2.834l0,-14.178c-0,-0.552 -0.448,-1 -1,-1c-0.552,-0 -1,0.448 -1,1l0,14.188Z"/></svg>
@@ -50,10 +51,21 @@
                    
                 </div>  
             </div>
-        </div>
-        <br><br>
         
-        </div>
+        </div><br><br>
+<div class="weather" id="weather">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun ficon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+<span>
+    Lagos <br>
+    <small>10:23</small>
+</span>
+<span>
+   <div></div><div></div><div></div> 29&deg;
+</span>
+</div>
+<div class="weather">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun ficon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+</div>
 
 </div>
 
@@ -81,7 +93,6 @@
 </nav>
 
 
-
 <div class="start" id="start">
     <div class="start-display" id="start-display">
 
@@ -89,43 +100,68 @@
         <span id="back">Back</span>
         <span id="next">Next</span>
     </div>
-    <div class="d001" id="d001">  
-    <div class="mc01">
-        <text>Route</text><br>
-        <text>please enter your name or nickname to continue to Route.</text>
-    </div>
-    <div class="input-bar">
-    <label for="name">Name</label>
-    <input type="text" placeholder="Your name" id="name" oncontextmenu="copy()">
-    </div>
-    <div class="bottom-pagination">
-    <span oncontextmenu="link()">Don't want to use your name?</span>
-    <div class="comp">
-    <button></button>
-    <button class="android"></button>
-    <button class="windows"></button>
-    <button class="microsoft"></button>
-    <button class="web"></button>
-    </div>
-    <br>
-    <span>Route will use this name identify you in ths app.</span>
-    <br><br>
-    <img src="/poeple.png" width="30" alt="people" oncontextmenu="save()">
-    <p>Your information is used to enable route services when you login, including RouteCloud, which automatically backsup your data in case you need to replace or restore it. Your user ID may be used to check eligibility for service offers.</p>
-    <a oncontextmenu="link()">See how your data is managed.</a>
-    </div>
+    <div class="d0">
+        <div class="d001" id="d001">  
+            <div class="mc01">
+                <text>Route</text><br>
+                <text>please enter your name or nickname to continue to Route.</text>
+            </div>
+            <div class="input-bar">
+            <label for="name">Name</label>
+            <input type="text" placeholder="Your name" id="name" oncontextmenu="copy()">
+            </div>
+            <div class="bottom-pagination">
+            <span oncontextmenu="link()">Don't want to use your name?</span>
+            <div class="comp">
+            <button></button>
+            <button class="android"></button>
+            <button class="windows"></button>
+            <button class="microsoft"></button>
+            <button class="web"></button>
+            </div>
+            <br>
+            <span>Route will use this name to identify you in ths app.</span>
+            <br><br>
+            <img src="/poeple.png" width="30" alt="people" oncontextmenu="save()">
+            <p>Your information is used to enable route services when you login, including RouteCloud, which automatically backsup your data in case you need to replace or restore it. Your user ID may be used to check eligibility for service offers.</p>
+            <a oncontextmenu="link()">See how your data is managed...</a>            
+            </div>
+            </div>
     </div>
 
     <div class="d002" id="d002">
         <div class="mc01">
-            <br>
+            
             <img src="/maskable_icon.png" alt="" width="" id="route">
             <br>
             <text id="name-inputed"></text>
             <br>
-            <text>Welcome to Route!</text>
+            <text>Please agree to our policy.</text>
         </div>
-        <br><br><br><br><br><br><br><br><br><br><br>
+        <br>
+        <div class="feature">
+            <div class="feat">
+               <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin avatar-icon font-medium-3"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+               </div>
+               <div>
+<text>Allow route to use location</text><br>
+<text>Route would use your location for services and commands in the app, it will also be used to enable automatic maps.</text>
+</div>
+</div>
+
+            <div class="feat">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                </div>
+                <div>
+                    <text>Allow push notifications</text><br>
+                    <text>Route would like to send push notifications to remind you of eg, events, travel and more.</text>
+                </div>
+            </div>
+        </div>
+
+        <br>
         <button id="continue">Continue</button>
     </div>
 
@@ -133,14 +169,14 @@
     </div>
 </div>
 
-    </div>
+    </div></div>
 
 <div class="contextmenu" id="contextmenu">
-<li>Home</li>
-<li>Search</li>
-<li>Bookmarks</li>
-<li>Profile</li>
-<li>Settings</li>
+<li>Home <svg style="fill: none" viewBox="0 0 24 24"><g transform="translate(2.400000, 2.000000)"><line class="svgC" x1="6.6787" x2="12.4937" y1="14.1354" y2="14.1354"></line><path d="M1.24344979e-14,11.713 C1.24344979e-14,6.082 0.614,6.475 3.919,3.41 C5.365,2.246 7.615,0 9.558,0 C11.5,0 13.795,2.235 15.254,3.41 C18.559,6.475 19.172,6.082 19.172,11.713 C19.172,20 17.213,20 9.586,20 C1.959,20 1.24344979e-14,20 1.24344979e-14,11.713 Z"></path></g></svg></li>
+<li>Search <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ficon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></li>
+<li>Bookmarks <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star ficon text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></li>
+<li>Profile <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></li>
+<li>Settings <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></li>
 </div>
 
 
@@ -199,20 +235,47 @@ self.addEventListener('fetch', event => {
 });
 
 
+window.onload = function() {setTimeout(stats, 400)}
+
+function stats() {
+    document.getElementById("start-display").style.transform = 'translateY(0)';
+    document.getElementById("start-display").style.transition = 'all .6s ease';
+}
+document.getElementById("weather").onclick = weatherReport;
 document.getElementById("continue").onclick = finish;
 document.getElementById("next").onclick = foward;
 document.getElementById("back").onclick = previous;
 
+function weatherReport() {
+var weatherTab = document.getElementById("weather");
+
+weatherTab.style.transition = 'all 2s';
+weatherTab.style.scale = '.94';
+setTimeout(wtabopened, 50);
+
+function wtabopened() {
+   weatherTab.style.transition = 'all .5s';
+    weatherTab.style.transform = 'translateY(1em)';
+    setTimeout(scaleWeather, 600);
+
+    function scaleWeather() {
+        weatherTab.style.height = '70vmax';
+    weatherTab.style.width = '100%';
+    weatherTab.style.position = 'static';
+    weatherTab.style.top = '3em';
+    weatherTab.style.boxShadow = '0 0 15px 2px rgb(14, 14, 14, .9)';
+    weatherTab.style.zIndex = '99';
+    }
+}
+}
+
 function finish() {
     setTimeout(clear, 800)
-    document.getElementById("start-display").style.visibility = 'hidden';
-    document.getElementById("start-display").style.opacity = '.7';
-        document.getElementById("start-display").style.visibility = 'hidden';
-    document.getElementById("start-display").style.opacity = '0';
-    document.getElementById("start-display").style.transform = 'translateY(10em)';
+    document.getElementById("start-display").style.transform = 'translateY(45em)';
+    document.getElementById("start-display").style.transition = 'all 0.7s cubic-bezier(.75, .1, .1, .85) 0s, background 0s ease 0s';
 
 function clear() {
-    document.getElementById("user-details").innerHTML =     document.getElementById("name").value;
+    document.getElementById("user-details").innerHTML = document.getElementById("name").value;
     document.getElementById("start").style.display = 'none';
 }
 }

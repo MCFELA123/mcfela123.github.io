@@ -26,7 +26,7 @@ body {
 
 .bg {
     width: 100%;
-    height: 16em;
+    height: 12em;
     background-image: url(/airplane.png);
     background-size: cover;
     transform: rotateY(180deg);
@@ -45,7 +45,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(5, 5, 5, 0.874);
+    background: rgba(5, 5, 5, 0.923);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,8 +56,8 @@ body {
     height: 34em;
     border-radius: 7px;
     background: rgb(25, 25, 26);
-    transition: .25s ease;
-    transform: translateY(0);
+    transform: translateY(45em);
+    transition: all 0.4s cubic-bezier(1, .9, .2, .85) 0s, background 0s ease 0s;
     visibility: visible;
     opacity: 1;
 }
@@ -68,34 +68,137 @@ body {
 width: 100%;
 height: 100%;
 background: #090909cf;
-backdrop-filter: blur(.7em);
+backdrop-filter: blur(.8em);
 }
 
 .dashboard .main-content {
     width: 90%;
-    height: 60%;
-    
+    height: 60%;  
     margin: 0 auto;
-
+    overflow-y: scroll;
+    border-radius: 10px;
 }
 
 .dashboard .main-content {
     width: 90%;
+    display: grid;
+    align-content: center;
+    justify-items: center;
 }
 
-.dashboard .main-content .cadev .cd0 {
-    width: 47%;
+.cadev {
+    width: 100%;
+    display: flex;
+    }
+
+    .cd0:first-child {
+        margin-left: 0 !important;
+    }
+
+.dashboard .main-content .cd0 {
+    width: 50%;
     height: 12em;
     border-radius: 10px;
-    float: left;
-    margin-left: 2%;
-    background: rgb(25, 25, 26);
+    margin-left: 10px;
+    background: rgb(23, 23, 23);
 }
 
-.dashboard .main-content .cadev div .inside {
-    width: 90%;
+.dashboard .main-content div .inside {
+    width: 95%;
     margin-left: 5%;
 }
+
+.weather {
+    transition: all 0.4s cubic-bezier(1, .9, .2, .85) 0s, background 0s ease 0s;
+    width: 100%;
+    
+    height: 4.3em;
+    offset-position: 300em;
+    background: rgb(23, 23, 23);
+    border-radius: 1em;  
+    box-shadow: 0 -3px 15px -9.5px rgba(0, 0, 0, 0.997);  
+}
+
+.weather span {
+    margin-left: 1.2em;
+    text-align: start;
+    font-size: 17px;
+    float: left;
+    font-weight: 500;
+    letter-spacing: .5px;
+    color: #eaeaea;
+   margin-top: .6em;
+    
+}
+
+.weather span:last-child {
+    float: right;
+    margin-right: 0.7em;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    color: #eaeaea;
+   margin-top: .4em;
+    
+}
+
+.weather span:last-child div {
+    background: white;
+    width: .6em;
+    border-radius: 2em;
+    height: 4px;
+    margin-left: 5px;
+    float: left;
+    margin-top: 1.3em;
+    transform: translateX(1.2em);
+}
+
+.weather span:last-child div:first-child {
+   width: .2em;
+}
+
+.weather span:last-child div:last-child {
+    width: .2em;
+    background: #373737;
+ }
+
+.weather span small {
+    color: #777777;
+    font-size: 15px;
+}
+
+
+.weather:last-child {
+    margin-top: -5em;
+    z-index: -99;
+    width: 95%;
+    box-shadow: none;
+    background: rgb(19.5, 19.5, 19.5);
+}
+
+.weather svg {
+    width: 2em;
+    margin-top: 1.1em;
+    float: left;
+}
+
+.feather-sun {
+    margin-left: 1em;
+    stroke: #ffaa00;
+}
+
+.feather-sun circle {
+    fill: #ffaa00;
+}
+
+.feather-sun {
+    animation: sun 1.5s infinite;
+  }
+  
+  @keyframes sun {
+    50% {rotate: 30deg;}
+  }
 
 .add {
     width: 3.5em;
@@ -147,7 +250,7 @@ fill: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgb(25, 25, 26);
+    background: rgb(30, 30, 31);
     cursor: pointer;
     box-shadow: 4px 6px 30px -8px rgb(0, 0, 0);
 }
@@ -307,7 +410,8 @@ margin-left: 2em;
 
 .start .start-display .mc01 {
     text-align: center;
-    margin-top: 2em;
+    transition: all 0.4s cubic-bezier(1, .9, .2, .85) 0s, background 0s ease 0s;
+    margin-top: 1em;
 }
 
 .start .start-display .mc01 text:first-child {
@@ -322,19 +426,21 @@ margin-left: 2em;
 }
 
 .start .start-display .input-bar {
-    width: 100%;
-    height: 3em;
-    margin-top: 2em;
+    width: 90%;
+    height: 2.4em;
+    margin-top: 2em !important;
     display: flex;
+    border-radius: 8px;
+    margin: 0 auto;
     align-items: center;
-    border-top: .5px solid rgb(49, 49, 49);
-    border-bottom: .5px solid rgb(49, 49, 49);
+    border: .5px solid rgb(53, 53, 53);
     background: rgb(44, 44, 44);
 }
 
 .start .start-display .input-bar label {
 transform: translateY(-2px);
 margin-left: .8em;
+cursor: pointer;
 }
 
 .start .start-display .input-bar input[type=text] {
@@ -362,17 +468,17 @@ text-indent: 5px;
     color: rgb(91, 91, 91);
 }
 
-#d002 button {
+.btn01 {
     padding: .6em;
     display: grid;
     margin: 0 auto;
     border: none;
-    width: 50%;
-    border-radius: .6em;
+    height: 2.2em;
+    width: 30%;
+    border-radius: 10px;
     color: white;
     font-size: 17px;
     letter-spacing: .35px;
-    box-shadow: 0 3.5px 10px -4.5px rgba(0, 123, 255, 0.798);
     backdrop-filter: blur(2em);
     text-align: center;
     cursor: pointer;
@@ -380,45 +486,111 @@ text-indent: 5px;
     transition: .2s ease;
 }
 
-#d002 button:hover {
+#continue:hover {
     background: rgba(0, 123, 255, 0.608);
     backdrop-filter: blur(2em);
     color: rgba(255, 255, 255, 0.459);
 }
 
-#d002 button:active {
+#continue:active {
     box-shadow: none;
     scale: 0.98;
 }
 
+#d002 button {
+    padding: .6em;
+    display: grid;
+    margin: 0 auto;
+    border: none;
+    height: 2.2em;
+    width: 30%;
+    border-radius: 10px;
+    color: white;
+    font-size: 17px;
+    letter-spacing: .35px;
+    backdrop-filter: blur(2em);
+    text-align: center;
+    cursor: pointer;
+    background: rgb(0, 123, 255);
+    transition: .2s ease;
+}
+
+.contextmenu svg {
+    stroke: rgb(199, 199, 199);
+    width: 1.5em;
+    float: right;
+    margin-right: 1em;
+    margin-top: 7px;
+}
+
+.none svg {
+    stroke: rgb(199, 199, 199);
+    width: 1.5em;
+    float: right;
+    margin-right: 1em;
+    margin-top: 7px;
+}
+
+.block svg {
+    stroke: rgb(199, 199, 199);
+    width: 1.5em;
+    float: right;
+    margin-right: 1em;
+    margin-top: 7px;
+}
+
+.contextmenu svg:first-child {
+    stroke-width: 1.8 !important;
+}
+
+.contextmenu svg:last-child {
+    fill: none;
+}
+
+.none svg:first-child {
+    stroke-width: 1.8 !important;
+}
+
+.none svg:last-child {
+    fill: none;
+}
+
+.block svg:first-child {
+    stroke-width: 1.8 !important;
+}
+
+.block svg:last-child {
+    fill: none;
+}
+
 .contextmenu {
-    width: 200px;
-    padding: 7px;
+    width: 220px;
+    padding: 5.5px;
     background: rgb(25, 25, 26);
     position: relative;
-    border-radius: 7px;
+    border-radius: 10px;
     visibility: hidden;
     opacity: 0;
     box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
 }
 
 .none {
-    width: 200px;
-    padding: 7px;
+    width: 220px;
+    padding: 5.5px;
     background: rgb(25, 25, 26);
     position: relative;
-    border-radius: 5px;
+    border-radius: 10px;
     visibility: hidden;
     opacity: 0;
     box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
 }
 
 .block {
-    width: 200px;
-    padding: 7px;
+    width: 220px;
+    padding: 5.5px;
     background: rgb(25, 25, 26);
     position: relative;
-    border-radius: 7px;
+    border-radius: 10px;
     visibility: visible;
     opacity: 1;
     box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
@@ -439,7 +611,7 @@ text-indent: 5px;
 .contextmenu li{
     list-style: none;
     width: inherit;
-    line-height: 2.5em;
+    line-height: 2.3em;
     text-indent: 1em;
     height: 2.5em;
     border-radius: 3px;
@@ -450,7 +622,7 @@ text-indent: 5px;
 .none li{
     list-style: none;
     width: inherit;
-    line-height: 2.5em;
+    line-height: 2.3em;
     text-indent: 1em;
     height: 2.5em;
     border-radius: 3px;
@@ -461,7 +633,7 @@ text-indent: 5px;
 .block li{
     list-style: none;
     width: inherit;
-    line-height: 2.5em;
+    line-height: 2.3em;
     text-indent: 1em;
     height: 2.5em;
     border-radius: 3px;
@@ -515,7 +687,6 @@ text-indent: 5px;
 }
 
 .d002 {
-    position: relative;
     transition: all 0.3s cubic-bezier(0.5, 0.8, .2, 0.99) 0s, background 0s ease 0s;
     transform: translateX(.5em);
     opacity: 0;
@@ -523,7 +694,6 @@ text-indent: 5px;
 }
 
 .right {
-    position: relative;
     transition: all 0.3s cubic-bezier(0.5, 0.8, .2, 0.99) 0s, background 0s ease 0s;
     transform: translateX(0);
     opacity: 1;
@@ -541,6 +711,91 @@ text-indent: 5px;
     transition: all .8s cubic-bezier(0.5, 0.8, .2, 1.35) 0s, background 0s ease 0s;
     padding-bottom: .7em;
 }
+
+.feature {
+    width: 87%;
+    height: 16em;
+    display: grid;
+    position: relative;
+    border-radius: 7px;
+    margin: 0 auto;
+    overflow-y: scroll;
+}
+
+.feature .feat {
+    width: 100%;
+    height: 98%;
+    margin: 0  auto;
+    border-radius: 7px;
+    background: rgba(99, 99, 99, 0.053);
+}
+
+.feature .feat:last-child {
+    margin-top: 8px;
+}
+
+.feature div {
+    height: 100%;
+    width: 65%;
+    border-radius: inherit;
+    float: left;
+
+}
+
+.feature .feat div:first-child {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255, 0, 0, 0);
+}
+
+.feature .feat div:last-child {
+   text-align: start;
+   padding-top: .6em;
+   padding-bottom: .5em;
+}
+
+.feature .feat div text:first-child {
+    font-size: 16.5px;
+    font-weight: 500 !important;
+}
+
+.feature .feat div text:last-child {
+    font-weight: 400 !important;
+    color: #828282;
+    font-size: 15px;
+}
+
+.feature .feat div:first-child svg {
+width: 3em;
+stroke: rgb(0, 123, 255);
+stroke-width: 1.8;
+}
+
+.feather-map-pin {
+    animation: myloc 2s infinite;
+  }
+  
+  @keyframes myloc {
+    50% {scale: .8;}
+  }
+
+  .feather-bell {
+    rotate: -15deg;
+    animation: myring 1s infinite;
+  }
+  
+  @keyframes myring {
+    50% {rotate: 15deg;}
+    
+  }
+
+  .feather-arrow-right {
+    stroke: rgb(102, 102, 102);
+    float: right;
+    
+  }
 
 .animate {  
     scale: 1 !important;
@@ -600,7 +855,25 @@ text-indent: 5px;
 }
 
 @media(max-width: 600px) {
-.start-display {
-    width: 24.5em !important;
+.start .start-display {
+    width: 24.5em;
 }
 }
+
+@media(max-width: 500px) {
+    .start-display {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: none !important;
+    }
+    .d0 {
+       padding-top: 4em;
+    }
+    #continue {
+        margin-top: 3em !important;
+    }
+    }
+
+    ::-webkit-scrollbar {
+display: none;
+    }
