@@ -1,43 +1,41 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>New Road</title>
-        <meta charset="UTF-8">
-        <link rel="shortcut icon" href ="images/congestion-fico.jpg" type="image/gif">
-        <meta name = "viewport" content="width=device-width, initial-scale=1.0">
-        <link href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css"/>
-        <script src="jquery.mobile-1.4.5/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <script src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.js" type="text/javascript"></script>
-    </head>
-    <body>
-        <div data-role="page" data-theme="b">
-            <div data-role="header" >
-                <a href="#" data-icon="back" data-rel="back">back</a>
-                <h1> New Road </h1>
-            </div>
-            <div role="main" class="ui-content">
-                <form id = "newRoad" name = "newroadform" method = "post" action = "newRoadServlet">
-                    <input type="text" name="road" id="road" placeholder="road" required/> 
-                    <input type="text" name="city" id="city" placeholder="city" required/> 
-                    <input type="text" name="country" id="country" placeholder="country" required/> 
-                    <label for="congestioncause">congestion cause</label>
-                        <select id="congestioncause" name="congestioncause" >
-                           <option value="high demand">high demand</option>
-                           <option value="accident">accident</option>
-                           <option value="road works">road works</option>
-                           <option value="poor timing">poor timing</option>
-                           <option value="weather">weather</option>
-                           <option value="events">events</option>
-                        </select>
-                        <label for="congestion">Extra minutes to spend:</label>
-                        <input type="range" name="congestionlevel" id="congestion" value="50" min="10" max="100" data-highlight="true"/><br>
-                        <div style="text-align: center">
-                            <input type="submit" data-inline="true" name="submit" id="submit" value="Submit" data-icon="check"/>
-                            <input type="reset" data-inline="true" value="Reset" data-icon="delete"/>
-                        </div>
-                </form> 
-            </div>
-        </div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const element = document.getElementById('element');
+    let lastScrollTop = 0;
+    element.onscroll = (e)=>{
+    if (element.scrollTop < lastScrollTop){
+          // upscroll 
+          return;
+       } 
+       lastScrollTop = element.scrollTop <= 0 ? 0 : element.scrollTop;
+        if (element.scrollTop + element.offsetHeight>= element.scrollHeight ){
+           console.log("End");
+        }
+    }
+    </script>
+    <style>
+        #element{
+      background:red;
+      max-height:300px;
+      overflow:scroll;
+    }
+    .item{
+    height:100px;
+    }
+    </style>
+    <div id="element">
+    <div class="item">item</div>
+    <div class="item">item</div>
+    <div class="item">item</div>
+    <div class="item">item</div>
+    <div class="item">item</div>
+    </div>
+</body>
 </html>

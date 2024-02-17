@@ -75,12 +75,8 @@ backdrop-filter: blur(.8em);
     width: 90%;
     height: 60%;  
     margin: 0 auto;
-    overflow-y: scroll;
+    overflow: scroll;
     border-radius: 10px;
-}
-
-.dashboard .main-content {
-    width: 90%;
     display: grid;
     align-content: center;
     justify-items: center;
@@ -111,7 +107,6 @@ backdrop-filter: blur(.8em);
 .weather {
     transition: all 0.4s cubic-bezier(1, .9, .2, .85) 0s, background 0s ease 0s;
     width: 100%;
-    
     height: 4.3em;
     offset-position: 300em;
     background: rgb(23, 23, 23);
@@ -131,15 +126,15 @@ backdrop-filter: blur(.8em);
     
 }
 
-.weather span:last-child {
-    float: right;
-    margin-right: 0.7em;
+.spin {
+   float: right !important;
+    margin-right: 0.7em !important;
     text-align: center;
-    font-size: 30px;
+    font-size: 30px !important;
     font-weight: 500;
     letter-spacing: .5px;
     color: #eaeaea;
-   margin-top: .4em;
+   margin-top: .3em !important;
     
 }
 
@@ -160,10 +155,11 @@ backdrop-filter: blur(.8em);
 
 .weather span:last-child div:last-child {
     width: .2em;
-    background: #373737;
+    background: #ffffff46;
  }
 
 .weather span small {
+    transition: .2s;
     color: #777777;
     font-size: 15px;
 }
@@ -215,6 +211,20 @@ backdrop-filter: blur(.8em);
 .add svg path {
 stroke-width: 20;
 fill: none;
+}
+
+.transcont {
+    width: inherit;
+    height: 85%;
+    transition: .4s ease;
+    visibility: hidden;
+    opacity: 0;
+overflow-y: hidden;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
 }
 
 .dashboard .main-content .cadev p {
@@ -877,3 +887,102 @@ stroke-width: 1.8;
     ::-webkit-scrollbar {
 display: none;
     }
+
+    .posit {
+width: 22em;
+height: 8em;
+margin: 0 auto;
+    }
+    
+.forecast {
+margin: 0 auto;
+width: 85%;
+height: 17em;
+color: #b4b4b4 !important;
+}
+
+.forecast div {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.134);
+    height: 10em;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.forecast span {
+    margin-left: 0;
+    font-weight: 300;
+    
+}
+
+.forecast span:last-child {
+    font-weight: 400;
+    color: whitesmoke;
+}
+
+    .deg{
+        float: left;
+        width: 8em;
+        height: 5em;
+        line-height: 2.1em;
+        text-align: start;
+        margin-top: 2em;
+        font-weight: 300;
+        margin-left: 0;
+        }
+
+        .deg div {
+            height: 50%;
+            width: inherit;
+         font-size: 60px;
+        }
+
+        .deg div:last-child {
+            font-size: 16px;
+            text-align: start;
+         font-weight: 400;
+         color: #818181;
+        }
+
+        .deg div:last-child svg {
+            width: 1.2em;
+            float: right;
+            margin-top: .5em;
+            margin-right: 5px;
+            stroke: #ffffff;
+        }
+
+     
+   .sunny {
+    animation: sunny 3s infinite ease;
+    width: 6em;
+    height: 6em;
+    border-radius: 5em;
+    margin: 0 auto;
+    margin-top: 1em;
+    float: right;
+    margin-right: 0;
+    box-shadow: 0 0 30px 7px #ff7700;
+    background: linear-gradient(to right, #dd4a00, #ff8121, #ffb834);
+   }
+    
+   @keyframes sunny {
+    50% {
+        box-shadow: none;
+    }
+   }
+
+   .sunny svg {
+    animation: cloud 3s infinite ease;
+    width: 5.5em;
+    transform: translateX(-5px);
+    float: right;
+    margin-right: -1.5em;
+    fill: white !important;
+   }
+
+   @keyframes cloud {
+    50% {
+        transform: translateX(5px);
+    }
+   }
