@@ -212,7 +212,7 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.031);
 
 .remind small {
     cursor: pointer;
-    color: rgb(0, 76, 255);
+    color: rgb(0, 110, 255);
 }
 .new {
     width: 100%;
@@ -222,8 +222,8 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.031);
 }
 
 .new img {
-    width: 13.6259em;
-    margin-right: 2%;
+    width: 13em;
+    margin-right: 0;
     float: right;
     -webkit-user-drag: none;
     margin-top: 1em;
