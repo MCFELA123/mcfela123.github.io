@@ -86,6 +86,7 @@ backdrop-filter: blur(.8em);
     border-radius: 15px;
     justify-items: center;
     overflow-y: scroll;
+    overflow-x: hidden;
     margin: 0 auto;
 }
 
@@ -139,19 +140,102 @@ backdrop-filter: blur(.8em);
     margin-left: 5%;
 }
 
+.reminder {
+    width: 100%;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    background: rgba(21, 21, 21, 0.911);
+}
+
+.reminder .header {
+width: 97%;
+margin: 0 auto;
+height: 2.2em;
+border-bottom: 1px solid rgba(255, 255, 255, 0.031);
+}
+
+.reminder .header img {
+    width: 1.2em;
+    float: left;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+
+.reminder .header text {
+    margin-left: 11px;
+    line-height: 2em;
+    color: #ffffffb7;
+}
+
+.reminder .header .function-icons {
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6em;
+    height: inherit;
+}
+
+.reminder .header .function-icons svg {
+    margin-left: 1.2em;
+    cursor: pointer;
+}
+
+.reminder .header .function-icons svg:hover {
+    fill: #ffffff !important;
+}
+
+.reminder .header .function-icons svg:first-child {
+    width: 1em;
+    fill: #ffffff98;
+}
+
+.reminder .header .function-icons svg:last-child {
+    width: 1.3em;
+    fill: #ffffff98;
+}
+
+.remind {
+    padding: .5em;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    height: 10em;
+    align-items: center;
+    justify-content: center;
+}
+
+.remind text {
+    color: #ffffff5e;
+    font-size: 16px;
+    font-size: 400;
+}
+
+.remind small {
+    cursor: pointer;
+    color: rgb(0, 76, 255);
+}
 .new {
     width: 100%;
     height: 10em;
     border-radius: 15px;
-    background: rgb(255, 116, 142);
+    background: #17212a;
+}
+
+.new img {
+    width: 13.6259em;
+    margin-right: 2%;
+    float: right;
+    -webkit-user-drag: none;
+    margin-top: 1em;
 }
 
 .new .shad {
     height: inherit;
-    width: 20em;
+    width: 12em;
+    border-radius: inherit;
     padding-left: 1.5em;
     float: left;
-    background: linear-gradient(to right, rgba(31, 31, 31, 0.641), rgba(19, 19, 19, 0.419), rgba(27, 27, 27, 0.222), rgba(158, 158, 158, 0.172), rgba(128, 128, 128, 0));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.445), rgba(0, 0, 0, 0));
 }
 
 .shad text{
@@ -176,12 +260,19 @@ display: inline;
     cursor: pointer;
     border: none;
     margin-top: 2em;
+}
 
+.shad button:hover {
+    opacity: .5;
+}
+
+.shad button:active {
+    opacity: 1;
 }
 
 .shad button text {
     font-size: 17px;
-    color: rgb(255, 116, 142);
+    color: #17212a;
     font-weight: 600;
 }
 
@@ -255,7 +346,7 @@ display: inline;
     z-index: -99;
     width: 95%;
     box-shadow: none;
-    background: rgb(67, 67, 67);
+    background: rgb(79, 79, 79);
 }
 
 .weather svg {
@@ -324,7 +415,7 @@ overflow-y: hidden;
     width: 90%;
     height: 6em;
     padding-left: .3em;
-    margin: 0 auto;
+    margin: .4em auto;
 }
 
 .dashboard .user-details text {
@@ -470,7 +561,7 @@ background: green;
 }
 
 .calender button text {
-    font-weight: 100;
+    font-weight: 400;
 }
 
 .adds {
