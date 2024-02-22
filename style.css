@@ -25,6 +25,8 @@ body {
 }
 
 .bg {
+    animation: bg 10s infinite;
+    animation-timing-function:cubic-bezier(.5, 0, 3, 0.22);
     width: 100%;
     height: 12em;
     background-image: url(/airplane.png);
@@ -34,9 +36,13 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     z-index: -99;
-    position: absolute;
+    position: absolute;   
+}
 
-    
+@keyframes bg {
+    50% {
+        background-image: url(./image.jpg);
+    }
 }
 
 .start {
@@ -69,18 +75,23 @@ width: 100%;
 height: 100%;
 background: #090909cf;
 backdrop-filter: blur(.8em);
+-webkit-backdrop-filter: blur(.8em);
 }
 
 .dashboard .main-content {
     width: 90%;
-    height: 60%;  
-    margin: 0 auto;
-    overflow: scroll;
-    border-radius: 10px;
+    height: 65%;
+     background: inherit;
     display: grid;
-    align-content: center;
+    border-radius: 15px;
     justify-items: center;
+    overflow-y: scroll;
+    margin: 0 auto;
 }
+
+
+
+
 
 .cadev {
     width: 100%;
@@ -93,10 +104,34 @@ backdrop-filter: blur(.8em);
 
 .dashboard .main-content .cd0 {
     width: 50%;
+    overflow: hidden;
     height: 12em;
-    border-radius: 10px;
+    border-radius: 17px;
+    border: 1px solid rgba(255, 255, 255, 0.015);
     margin-left: 10px;
-    background: rgb(23, 23, 23);
+    background: rgba(21, 21, 21, 0.911);
+}
+
+.month {
+    float: right;
+    height: 1.7em;
+    width: 4.5em;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(0, 0, 0);
+    margin-top: -2.3em;
+    margin-right: 1em;
+    box-shadow: 0 0 0 .5px rgb(49, 49, 49);
+    background: rgba(255, 255, 255, 0.023);
+}
+
+.month text {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(83, 152, 255);
 }
 
 .dashboard .main-content div .inside {
@@ -104,13 +139,62 @@ backdrop-filter: blur(.8em);
     margin-left: 5%;
 }
 
+.new {
+    width: 100%;
+    height: 10em;
+    border-radius: 15px;
+    background: rgb(255, 116, 142);
+}
+
+.new .shad {
+    height: inherit;
+    width: 20em;
+    padding-left: 1.5em;
+    float: left;
+    background: linear-gradient(to right, rgba(31, 31, 31, 0.641), rgba(19, 19, 19, 0.419), rgba(27, 27, 27, 0.222), rgba(158, 158, 158, 0.172), rgba(128, 128, 128, 0));
+}
+
+.shad text{
+display: inline;
+}
+
+.shad .find {
+ font-size: 1.6em;
+ font-weight: 500;  
+}
+
+.shad .all {
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.shad button {
+    background: white; 
+    width: 10em;
+    border-radius: 2em;
+    height: 2.3em;
+    cursor: pointer;
+    border: none;
+    margin-top: 2em;
+
+}
+
+.shad button text {
+    font-size: 17px;
+    color: rgb(255, 116, 142);
+    font-weight: 600;
+}
+
 .weather {
     transition: all 0.4s cubic-bezier(1, .9, .2, .85) 0s, background 0s ease 0s;
-    width: 100%;
-    height: 4.3em;
+    width: 99%;
+    position: relative;
+    height: 4.2em;
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    margin: 2px auto;
     offset-position: 300em;
     background: rgb(23, 23, 23);
-    border-radius: 1em;  
+    border-radius: 1.2em;  
     box-shadow: 0 -3px 15px -9.5px rgba(0, 0, 0, 0.997);  
 }
 
@@ -165,12 +249,13 @@ backdrop-filter: blur(.8em);
 }
 
 
-.weather:last-child {
-    margin-top: -5em;
+.Wlast{
+    display: block;
+    margin-top: -4.8em;
     z-index: -99;
     width: 95%;
     box-shadow: none;
-    background: rgb(19.5, 19.5, 19.5);
+    background: rgb(67, 67, 67);
 }
 
 .weather svg {
@@ -219,6 +304,7 @@ fill: none;
     transition: .4s ease;
     visibility: hidden;
     opacity: 0;
+    overflow-x: hidden;
 overflow-y: hidden;
     text-align: center;
     position: absolute;
@@ -242,8 +328,177 @@ overflow-y: hidden;
 }
 
 .dashboard .user-details text {
-    font-size: 35px;
+    font-size: 20px;
+    font-weight: 300;
     text-transform: capitalize;
+}
+
+.ex {
+    font-size: 30px !important;
+font-weight: 400 !important;
+}
+
+.notpart {
+    opacity: .15 !important;
+}
+
+.class {
+    width: 90%;
+    border-radius: 15px;
+    height: 2em;
+    margin: 1em auto;
+    border: 1px solid rgba(255, 255, 255, 0.015);
+    background: rgb(24, 24, 24);
+}
+
+.class div {
+    width: 16.5%;
+     height: inherit;
+     background: rgba(255, 255, 255, 0.115);
+     position: absolute;
+     border-radius: inherit;
+     
+}
+
+.class button {
+    width: 19.25%;
+    height: inherit;
+    cursor: pointer;
+    border-radius: inherit;
+    background: unset;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    color: rgba(255, 255, 255, 0.612);
+}
+
+.class button:first-child {
+float: left;
+margin-left: 0;
+}
+
+.class button:last-child {
+    float: right;
+    margin-right: 0;
+}
+
+
+
+.longitude {
+    background: rgba(5, 5, 5, 0.43);
+    height: 2em;
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    top: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.074);
+    border-radius: 10px;
+}
+
+.longitude div {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.longitude div svg {
+    width: 1.1em;
+    stroke-width: 1.5;
+    stroke: rgba(245, 245, 245, 0.481);
+}
+
+.longitude div:first-child {
+    justify-content: center;
+    height: 50%;
+    border-right: 1px solid rgba(255, 255, 255, 0.098);
+    width: 25%;
+    background: rgba(0, 16, 235, 0) !important;
+}
+
+.longitude div:last-child {
+    align-items: center;
+    text-indent: 10px;
+width: 7em;
+}
+
+.dot {
+    animation: beep 1s infinite;
+width: 5px;
+height: 5px;
+margin-left: 6px;
+border-radius: 3em;
+background: green;
+}
+
+@keyframes beep {
+    50% {
+        opacity: 0;
+    }
+}
+
+.longitude div:last-child text {
+    margin-top: -3px;
+    font-weight: unset;
+    color: #ffffffa9;
+}
+
+.calender {
+    width: 100%;
+    transform: translateY(-7px);    
+    overflow-y: scroll;
+    height: 9.5em;
+    margin-left: -4px;    
+}
+
+.calender button {
+    width: 4.1vmax;
+    height: 4.1vmax;
+    background: transparent;
+    color: rgb(200, 200, 200);
+    border-radius: 15em;
+    font-weight: 300 !important;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 0 5px 0 rgba(0, 85, 255, 0);
+    border: none;
+}
+
+.calender button:hover {
+    background: rgba(255, 255, 255, 0.081);
+}
+
+.calender button text {
+    font-weight: 100;
+}
+
+.adds {
+    width: 5em;
+    height: 3.5em;
+    margin-top: 10px;
+    border-radius: 2em;
+    transform: translateX(-4px);
+    box-shadow: 0 0 0 .5px rgb(49, 49, 49);
+    background: rgba(255, 255, 255, 0.023);
+}
+
+.calender .important {
+    opacity: 1 !important;
+    font-weight: 600 !important;
+text-indent: -1px;
+    color: rgba(55, 118, 255, 0.896);
+        border: 1px solid rgba(55, 118, 255, 0.896);
+    background: rgba(255, 255, 255, 0.028);
+}
+
+.notpart:hover {
+    background: unset !important;
+    cursor: default !important;
+}
+
+.calender .important:hover {
+    background: none;
 }
 
 .dashboard .user-details b {
@@ -256,7 +511,9 @@ overflow-y: hidden;
     text-align: center;
     width: 3.5em;
     height: 3.5em;
+    transform: translateY(-1.3em);
     border-radius: 2em;
+    border: 1px solid rgba(255, 255, 255, 0.023);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -528,24 +785,24 @@ text-indent: 5px;
 .contextmenu svg {
     stroke: rgb(199, 199, 199);
     width: 1.5em;
-    float: right;
-    margin-right: 1em;
+    float: left;
+    margin-left: .7em;
     margin-top: 7px;
 }
 
 .none svg {
     stroke: rgb(199, 199, 199);
     width: 1.5em;
-    float: right;
-    margin-right: 1em;
+    float: left;
+    margin-left: .7em;
     margin-top: 7px;
 }
 
 .block svg {
     stroke: rgb(199, 199, 199);
     width: 1.5em;
-    float: right;
-    margin-right: 1em;
+    float: left;
+    margin-left: .7em;
     margin-top: 7px;
 }
 
@@ -574,33 +831,39 @@ text-indent: 5px;
 }
 
 .contextmenu {
-    width: 220px;
+    width: 230px;
     padding: 5.5px;
-    background: rgb(25, 25, 26);
+    background: rgba(25, 25, 26, 0.761);
     position: relative;
     border-radius: 10px;
+    backdrop-filter: blur(1.5em);
+    -webkit-backdrop-filter: blur(1.5em);
     visibility: hidden;
     opacity: 0;
     box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
 }
 
 .none {
-    width: 220px;
+    width: 230px;
     padding: 5.5px;
-    background: rgb(25, 25, 26);
+    background: rgba(25, 25, 26, 0.761);
     position: relative;
     border-radius: 10px;
+    backdrop-filter: blur(1.5em);
+    -webkit-backdrop-filter: blur(1.5em);
     visibility: hidden;
     opacity: 0;
     box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
 }
 
 .block {
-    width: 220px;
+    width: 230px;
     padding: 5.5px;
-    background: rgb(25, 25, 26);
+    background: rgba(25, 25, 26, 0.761);
     position: relative;
     border-radius: 10px;
+    backdrop-filter: blur(1.5em);
+    -webkit-backdrop-filter: blur(1.5em);
     visibility: visible;
     opacity: 1;
     box-shadow: 0 0 25px -12px rgba(0, 0, 0, 0.664);
@@ -608,14 +871,23 @@ text-indent: 5px;
 
 .contextmenu li:first-child {
     margin-top: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.092);
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .none li:first-child {
     margin-top: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.092);
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .block li:first-child {
     margin-top: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.092);
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .contextmenu li{
@@ -624,7 +896,7 @@ text-indent: 5px;
     line-height: 2.3em;
     text-indent: 1em;
     height: 2.5em;
-    border-radius: 3px;
+    border-radius: 7px;
     margin-top: 5px;
 
 }
@@ -635,7 +907,7 @@ text-indent: 5px;
     line-height: 2.3em;
     text-indent: 1em;
     height: 2.5em;
-    border-radius: 3px;
+    border-radius: 7px;
     margin-top: 5px;
 
 }
@@ -646,21 +918,21 @@ text-indent: 5px;
     line-height: 2.3em;
     text-indent: 1em;
     height: 2.5em;
-    border-radius: 3px;
+    border-radius: 7px;
     margin-top: 5px;
 
 }
 
 .contextmenu li:hover {
-    background: rgb(34, 34, 34);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .none li:hover {
-    background: rgb(34, 34, 34);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .block li:hover {
-    background: rgb(34, 34, 34);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .android {
@@ -909,6 +1181,33 @@ color: #b4b4b4 !important;
     border-radius: 10px;
 }
 
+.forecast div div {
+    width: 12%;
+    margin-left: 2%;
+    background: unset;
+    float: left;
+    display: grid;
+    color: whitesmoke;
+    justify-items: center;
+
+}
+
+.forecast div div header {
+color: whitesmoke;
+font-size: small;
+margin-top: 5px;
+}
+
+.forecast div div svg {
+    fill: white;
+    position: absolute;
+    margin-top: 2.5em;
+}
+
+.forecast div div text:first-child {
+    color: red;
+}
+
 .forecast span {
     margin-left: 0;
     font-weight: 300;
@@ -936,6 +1235,7 @@ color: #b4b4b4 !important;
             width: inherit;
          font-size: 60px;
         }
+
 
         .deg div:last-child {
             font-size: 16px;
