@@ -25,11 +25,10 @@ body {
 }
 
 .bg {
-    animation: bg 10s infinite;
-    animation-timing-function:cubic-bezier(.5, 0, 3, 0.22);
+    animation: bg 15s infinite;
     width: 100%;
     height: 12em;
-    background-image: url('https://raw.githubusercontent.com/MCFELA123/MCFELA123.github.io/main/airplane.png');
+    background-image: url(airplane.png);
     background-size: cover;
     transform: rotateY(180deg);
     background-position: center;
@@ -40,9 +39,12 @@ body {
 }
 
 @keyframes bg {
-    50% {
-        background-image: url('https://raw.githubusercontent.com/MCFELA123/MCFELA123.github.io/main/image.jpg');
-    }
+        0%   {background-image: url(image.jpg);}
+        25%  {background-image: url(plane-departure.svg);}
+        50%  {background-image: url(toronto.png);}
+        75%  {background-image: url(airplane.png);}
+        100% {background-image: url(los\ angeles.png);}
+      
 }
 
 .start {
@@ -84,6 +86,7 @@ backdrop-filter: blur(.8em);
      background: inherit;
     display: grid;
     border-radius: 15px;
+    transition: all .2s ease;
     justify-items: center;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -108,7 +111,7 @@ backdrop-filter: blur(.8em);
     overflow: hidden;
     height: 12em;
     border-radius: 17px;
-    border: 1px solid rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.02);
     margin-left: 10px;
     background: rgba(21, 21, 21, 0.911);
 }
@@ -204,6 +207,21 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.031);
     justify-content: center;
 }
 
+.remind button {
+    width: 6em;
+    height: 2em;
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    margin-top: 1em;
+    background: rgb(0, 98, 255);
+    color: white;
+}
+
+.remind button:active {
+    opacity: .4;
+}
+
 .remind text {
     color: #ffffff5e;
     font-size: 16px;
@@ -262,12 +280,8 @@ display: inline;
     margin-top: 2em;
 }
 
-.shad button:hover {
-    opacity: .5;
-}
-
 .shad button:active {
-    opacity: 1;
+    opacity: .5;
 }
 
 .shad button text {
@@ -433,11 +447,206 @@ font-weight: 400 !important;
     opacity: .15 !important;
 }
 
+.search {
+width: 100%;
+margin-top: 1em;
+opacity: 0;
+overflow: scroll;
+transition: all .2s ease;
+display: none;
+background: rgb(0, 0, 0);
+height: 80%;
+}
+
+.search .inner {
+    width: 90%;
+    margin: 0 auto;
+    height: inherit;
+}
+
+.inner .topic {
+    color: rgba(255, 255, 255, 0.371);
+    font-weight: 500;
+}
+
+.inner .searchcon {
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.12);
+    background: unset;
+    height: 2em;
+    display: flex;
+    align-items: center;
+}
+
+.inner .searchcon svg {
+    width: 1.45em;
+    margin-left: 5px;
+    stroke: rgb(73, 73, 73);
+}
+
+.inner .searchcon svg:hover {
+    stroke: white;
+}
+
+.inner .sights {
+    width: 100%;
+    height: 19em;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: no-wrap;
+    cursor: pointer;
+    overflow-x: auto;
+    border-radius: 15px;
+    overflow-y: hidden;
+}
+
+.inner .sights div .bmark {
+    width: 3.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5em;
+    background: rgba(255, 255, 255, 0.418) !important;
+    border-radius: 3em;
+    margin-right: 1em;
+    margin-top: 12px;
+    float: right;
+}
+
+.inner .sights div .bmark svg {
+    width: 2.5em;
+    fill: rgba(37, 37, 37, 0.205) !important;
+}
+
+.popular {
+    width: 100%;
+    height: 4em;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.096);
+    border: 1px solid rgba(255, 255, 255, 0.037);
+    margin-top: 1em;
+}
+
+.inner .sights div {
+ width: 18em;
+ transition: all .3s ease;
+ flex: 0 0 auto;
+ height: inherit;
+ background-position: center;
+ background-size: cover;
+ float: left;
+ margin-left: 2em;
+ border-radius: inherit;
+}
+
+.inner .sights div:hover {
+   scale: .98;
+}
+
+.inner .sights div:first-child {
+    margin-left: 0;
+    background-image: url(lighthouse.jpg);
+}
+
+.bg2 {
+    background-image: url(toronto.png);
+}
+
+.bg2 {
+    background-image: url(los\ angeles.png);
+}
+
+.bg3 {
+    background-image: url(paris.jpg);
+}
+
+.bg4 {
+    background-image: url(newyork.png);
+}
+
+.bg5 {
+    background-image: url(dubai.jpg);
+}
+
+.bg6 {
+    background-image: url(australia.jpg);
+}
+
+.bg7 {
+    background-image: url(europe.jfif);
+}
+
+.searchcon .clear {
+    width: 2em;height: 1.5em;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    color: rgb(73, 73, 73);
+    font-weight: 500;
+    justify-content: center;
+    background: none;
+    margin-left: 5px;
+}
+
+.searchcon .clear text {
+    
+}
+
+.searchcon .clear:hover {
+    background: rgba(255, 255, 255, 0.124);
+}
+
+.searchcon .clear:active {
+    background: rgba(255, 255, 255, 0.124);
+    color: white;
+}
+
+.inpset:hover {
+    fill: white !important;
+    stroke: none !important;
+}
+
+
+.inpset{
+    fill: rgb(73, 73, 73) !important;
+    stroke: none !important;
+}
+
+.inner input[type=text] {
+    margin-top: 0;
+    width: 100%;
+    outline: unset;
+    border-right: 1px solid rgba(255, 255, 255, 0.164) !important;
+    height: 50%;
+    border-left: 1px solid rgba(255, 255, 255, 0.164) !important;
+    background: unset;
+    border: none;
+    text-indent: 5px;
+    color: grey;
+    margin-left: 7px;
+}
+
+.inner input[type=text]::placeholder {
+    font-size: 15px;
+    transition: all .2s ease;
+    transform: translateY(.5px);
+    color: rgba(255, 255, 255, 0.201);
+    letter-spacing: .3px;
+    font-weight: 300;
+}
+
+.inner input[type=text]:focus {
+text-indent: 10px;
+}
+
 .class {
     width: 90%;
     border-radius: 15px;
     height: 2em;
     margin: 1em auto;
+    transition: all .3s ease;
+    box-shadow: 0 1.3em 40px 40px rgba(0, 0, 0, 0.727);
     border: 1px solid rgba(255, 255, 255, 0.015);
     background: rgb(24, 24, 24);
 }
@@ -570,8 +779,8 @@ background: green;
     margin-top: 10px;
     border-radius: 2em;
     transform: translateX(-4px);
-    box-shadow: 0 0 0 .5px rgb(49, 49, 49);
-    background: rgba(255, 255, 255, 0.023);
+    border: 1px solid rgba(255, 255, 255, 0.052);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .calender .important {
@@ -645,7 +854,7 @@ text-indent: -1px;
 }
 
 .body-container nav button:hover {
-    background: #262626;
+    background: #262626 !important;
 }
 
 .body-container nav .mid-navigate {
