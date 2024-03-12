@@ -290,12 +290,19 @@ display: inline;
     font-weight: 600;
 }
 
+#lay {
+    display: none;
+}
+
+#lays {
+    display: none;
+}
+
 .weather {
-    transition: all 0.4s cubic-bezier(1, .9, .2, .85) 0s, background 0s ease 0s;
+    transition: all 0.3s cubic-bezier(1, .9, .2, .85) 0s, background 0s ease 0s;
     width: 99%;
     position: relative;
     height: 4.2em;
-    border: 1px solid rgba(255, 255, 255, 0.015);
     margin: 2px auto;
     offset-position: 300em;
     background: rgb(23, 23, 23);
@@ -322,10 +329,47 @@ display: inline;
     font-size: 30px !important;
     font-weight: 500;
     letter-spacing: .5px;
+    opacity: 1;
+    visibility: visible;
     color: #eaeaea;
    margin-top: .3em !important;
-    
 }
+
+.f-icons {
+height: 3em;
+padding-top: 5px;
+transition: all .1s ease;
+padding-right: 1.1em;
+right: 0;
+visibility: hidden;
+z-index: 9;
+border-top-right-radius: inherit;
+position: absolute;
+display: flex;
+justify-content: center;
+}
+
+.f-icons svg {
+    cursor: pointer;
+    fill: white;
+    margin-left: 15px;
+    width: 15px !important;
+}
+
+.f-icons svg:hover {
+opacity: .4;
+}
+
+
+#maximize {
+    transform: translateY(-4px);
+}
+
+.spyne {
+    opacity: 0;
+    transition: all .1s ease;
+    visibility: hidden;
+ }
 
 .weather span:last-child div {
     background: white;
@@ -369,21 +413,20 @@ display: inline;
     float: left;
 }
 
-.feather-sun {
-    margin-left: 1em;
-    stroke: #ffaa00;
-}
+
 
 .feather-sun circle {
     fill: #ffaa00;
 }
 
-.feather-sun {
-    animation: sun 1.5s infinite;
-  }
-  
+  .feather-sun {
+    margin-left: 1em;
+    stroke: #ffaa00;
+    animation: sun 1.5s infinite !important;
+}
+
   @keyframes sun {
-    50% {rotate: 30deg;}
+    50% {rotate: 30deg !important;}
   }
 
 .add {
@@ -472,11 +515,14 @@ height: 80%;
 .inner .searchcon {
     margin-top: 10px;
     border-radius: 8px;
-    box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.12);
-    background: unset;
+    background: rgba(255, 255, 255, 0.088);
     height: 2em;
     display: flex;
     align-items: center;
+}
+
+.ficon {
+    margin-left: 12px !important;
 }
 
 .inner .searchcon svg {
@@ -577,8 +623,117 @@ height: 80%;
     background-image: url(europe.jfif);
 }
 
+.bot-det {
+    width: 69% !important;
+    padding-top: 10px;
+    padding-left: 13px;
+    font-size: 1.5em;
+
+    border-radius: 0 !important;
+    border-top-left-radius: inherit !important;
+    margin-left: 0 !important;
+    height: 10em !important;
+}
+
+.bot-det small {
+    font-size: .7em !important;
+    color: rgba(255, 255, 255, 0.635);
+}
+
+.decor {
+    background: none !important;
+    width: inherit !important;
+    border-radius: inherit !important;
+    height: inherit !important;
+    margin-left: 0 !important;
+    position: sticky;
+}
+
+.decor:hover {
+    scale: 1 !important;
+}
+
+.bottom-view {
+    width: inherit;
+     background: rgb(25, 25, 25);
+     height: 3.5em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+     border-bottom-left-radius: inherit;
+     border-bottom-right-radius: inherit;
+}
+
+.bottom-view div {
+    width: 59% !important;
+    height: inherit;
+    padding-left: 10px;
+    counter-reset: white;
+    border-radius: 0 !important;
+    margin-left: 0 !important;
+}
+
+.bottom-view text:first-child  {
+    opacity: 1 !important;
+    font-weight: 500 !important;
+}
+
+.bottom-view text {
+    opacity: .6;
+    font-size: 13px;
+display: flex;
+}
+
+.bottom-view div:last-child div {
+    width: 3.5em !important;
+    height: 1.3em;
+    margin-right: 2em;
+    margin-top: 1em;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-radius: 3em !important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 0 !important;
+    background: red;
+    font-weight: 700;
+    color: rgb(0, 140, 255);
+}
+
+.bottom-view div:last-child div text {
+    font-size: 14px;
+}
+
+.bottom-view text:last-child {
+    opacity: 1 !important;
+}
+
+.bottom-view text:last-child a  {
+    color: rgb(0, 140, 255) !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.bottom-view div:first-child {
+    width: 15% !important;
+    height: 2.5em;
+    padding-left: 0 !important;
+    border-radius: 10px !important;
+    margin-top: .5em;
+    margin-left: 10px !important;
+}
+
+.bottom-view div:last-child {
+    display: flex !important;
+    justify-content: center !important;
+    width: 18% !important;
+    padding-left: 0 !important;
+    border-bottom-right-radius: inherit !important;
+}
+
 .searchcon .clear {
-    width: 2em;height: 1.5em;
+    width: 2em;
+    height: 1.5em;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -619,12 +774,11 @@ height: 80%;
     outline: unset;
     border-right: 1px solid rgba(255, 255, 255, 0.164) !important;
     height: 50%;
-    border-left: 1px solid rgba(255, 255, 255, 0.164) !important;
     background: unset;
     border: none;
     text-indent: 5px;
     color: grey;
-    margin-left: 7px;
+    margin-left: 4px;
 }
 
 .inner input[type=text]::placeholder {
@@ -859,14 +1013,14 @@ text-indent: -1px;
 
 .body-container nav .mid-navigate {
     background: #262626;
-    scale: 1.1;
+    scale: 1.25;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .body-container nav .mid-navigate:hover {
-    background: white;
+    background: white !important;
 }
 
 .body-container nav .mid-navigate img {
