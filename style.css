@@ -655,9 +655,11 @@ height: 80%;
 
 .bottom-view {
     width: inherit;
-     background: rgb(25, 25, 25);
+     background: rgba(25, 25, 25, 0.831);
      height: 3.5em;
+     backdrop-filter: blur(.5em);
     position: absolute;
+    -webkit-backdrop-filter: blur(.5em);
     bottom: 0;
     left: 0;
      border-bottom-left-radius: inherit;
