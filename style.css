@@ -575,7 +575,7 @@ height: 80%;
 }
 
 .inner .sights div {
- width: 18em;
+ width: 16em;
  transition: all .3s ease;
  flex: 0 0 auto;
  height: inherit;
@@ -587,7 +587,7 @@ height: 80%;
 }
 
 .inner .sights div:hover {
-   scale: .98;
+   transform: scale(0.98);
 }
 
 .inner .sights div:first-child {
@@ -623,22 +623,39 @@ height: 80%;
     background-image: url(europe.jfif);
 }
 
+.star-empty {
+    fill: none !important;
+    stroke: rgba(255, 255, 255, 0.539) !important;
+    stroke-width: 25 !important;
+}
+
 .bot-det {
-    width: 69% !important;
-    padding-top: 10px;
+    width: 95% !important;
     padding-left: 13px;
+    position: absolute;
+    bottom: 0;
     font-size: 1.5em;
-
+    background: rgba(255, 255, 255, 0);
+    -webkit-backdrop-filter: blur(1.7px);
+    backdrop-filter: blur(1.7px);
     border-radius: 0 !important;
-    border-top-left-radius: inherit !important;
+    border-bottom-left-radius: inherit !important;
+    border-bottom-right-radius: inherit !important;
     margin-left: 0 !important;
-    height: 10em !important;
+    height: 5em !important;
 }
 
-.bot-det small {
-    font-size: .7em !important;
-    color: rgba(255, 255, 255, 0.635);
+.bot-det:hover {
+    transform: scale(1) !important;
 }
+
+.bot-det text text {
+    font-size: .95em !important;
+    color: #ffd788;
+    font-weight: 500;
+}
+
+
 
 .decor {
     background: none !important;
@@ -649,89 +666,7 @@ height: 80%;
     position: sticky;
 }
 
-.decor:hover {
-    scale: 1 !important;
-}
 
-.bottom-view {
-    width: inherit;
-     background: rgba(25, 25, 25, 0.831);
-     height: 3.5em;
-     backdrop-filter: blur(.5em);
-    position: absolute;
-    -webkit-backdrop-filter: blur(.5em);
-    bottom: 0;
-    left: 0;
-     border-bottom-left-radius: inherit;
-     border-bottom-right-radius: inherit;
-}
-
-.bottom-view div {
-    width: 59% !important;
-    height: inherit;
-    padding-left: 10px;
-    counter-reset: white;
-    border-radius: 0 !important;
-    margin-left: 0 !important;
-}
-
-.bottom-view text:first-child  {
-    opacity: 1 !important;
-    font-weight: 500 !important;
-}
-
-.bottom-view text {
-    opacity: .6;
-    font-size: 13px;
-display: flex;
-}
-
-.bottom-view div:last-child div {
-    width: 3.5em !important;
-    height: 1.3em;
-    margin-right: 2em;
-    margin-top: 1em;
-    background: rgba(255, 255, 255, 0.07) !important;
-    border-radius: 3em !important;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    margin-left: 0 !important;
-    background: red;
-    font-weight: 700;
-    color: rgb(0, 140, 255);
-}
-
-.bottom-view div:last-child div text {
-    font-size: 14px;
-}
-
-.bottom-view text:last-child {
-    opacity: 1 !important;
-}
-
-.bottom-view text:last-child a  {
-    color: rgb(0, 140, 255) !important;
-    text-decoration: none !important;
-    font-weight: 500 !important;
-}
-
-.bottom-view div:first-child {
-    width: 15% !important;
-    height: 2.5em;
-    padding-left: 0 !important;
-    border-radius: 10px !important;
-    margin-top: .5em;
-    margin-left: 10px !important;
-}
-
-.bottom-view div:last-child {
-    display: flex !important;
-    justify-content: center !important;
-    width: 18% !important;
-    padding-left: 0 !important;
-    border-bottom-right-radius: inherit !important;
-}
 
 .searchcon .clear {
     width: 2em;
