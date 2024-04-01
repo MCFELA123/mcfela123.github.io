@@ -903,7 +903,7 @@ font-weight: 500;
 }
 
 .book-card {
-    width: 24em;
+    width: 85%;
     height: 7em;
     margin: 0 auto;
     border-radius: 10px;
@@ -917,6 +917,7 @@ font-weight: 500;
 
 .book-card .first {
     width: 100%;
+    margin: 0 auto;
     height: 100%;
     justify-content: center;
     align-items: center;
