@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <style>
+.more {display: none;}
+
+        </style>
+
+<center>
+  <div id="product1">
+    <h3>PLS-CADD</h3>
+    <p>The standard edition of PLS-CADD is a line design    program that includes all the terrain, sag-tension, loads, clearances and drafting functions necessary for the design of an entire power
+    <span class="dots">...</span>
+    <span class="more">line. Also includes PLS-CADD/LITE and PLS-CADD/ULTRALITE, but not any of the other items listed below (compare editions).</span>
+    </p>
+    <button onclick="myFunction(event)" class="myBtn">Read more</button>
+    <button onclick="window.FileSystemDirectoryEntry()">select</button>
+  </div>
+  
+  <div id="product2">
+    <h3>PLS-CADD</h3>
+    <p>The standard edition of PLS-CADD is a line design    program that includes all the terrain, sag-tension, loads, clearances and drafting functions necessary for the design of an entire power
+    <span class="dots">...</span>
+    <span class="more">line. Also includes PLS-CADD/LITE and PLS-CADD/ULTRALITE, but not any of the other items listed below (compare editions).</span>
+    </p>
+    <button onclick="myFunction(event)" class="myBtn">Read more</button>
+  </div>
+
+</center>
+    <script>
+function myFunction(e) {
+  
+  var product = e.target.parentElement;
+  var dots = product.getElementsByClassName("dots")[0];
+  var moreText = product.getElementsByClassName("more")[0];
+  var btnText = product.getElementsByClassName("myBtn")[0];
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more"; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less"; 
+    moreText.style.display = "inline";
+  }
+}
+  </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>
