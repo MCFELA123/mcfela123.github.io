@@ -1,0 +1,34 @@
+
+{
+  "localuser": {
+    "topic": "random",
+    "__history__": {
+      "input": [
+        "how are you",
+        "my name is noah",
+        "hello bot",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ],
+      "reply": [
+        "Does that question interest you?",
+        "Nice to meet you, Noah.",
+        "Hi. What seems to be your problem?",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined",
+        "undefined"
+      ]
+    },
+    "__lastmatch__": "(what|who|when|where|how) [*]",
+    "name": "Noah"
+  }
+}

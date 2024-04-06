@@ -8,12 +8,120 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
   exit;
 }
 ?>
+
+<?php
+/**
+ * Optional convenience class. Objects extending the
+ * StateHandler class can register with a StateArchivist
+ * instance; then calling remember() or restore() on the 
+ * archivist will be propagated to all registered objects.
+ */
+class StateArchivist {
+
+  /**
+   * The array of objects
+   * @var array
+   */
+  private $objects = [];
+
+  /**
+   * Register an object that extends the StateHandler 
+   * class and initially have it remember its state 
+   * (unless specified otherwise).
+   * @param  StateHandler  $object
+   * @param  boolean       $remember
+   */
+  public function register(
+    StateHandler $object, 
+    $remember = true
+  ) {
+
+    if ($remember) {
+      $object->remember(); 
+    }
+
+    $this->objects[] = $object;
+  }
+
+  /**
+   * Call the remember() function on
+   * all registered objects
+   */
+  public function remember() {
+
+    foreach ($this->objects as $object) {
+      $object->remember();
+    }
+  }
+
+  /**
+   * Call the restore function on all objects
+   */
+  public function restore() {
+
+    foreach ($this->objects as $object) {
+      $object->restore();
+    }
+  }
+}
+?>
+<?php
+/**
+ * Objects extending this class can remember
+ * and later restore their state
+ */
+class StateHandler {
+
+  /**
+   * The array of states
+   * @var array
+   */
+  private $states = [];
+
+  /**
+   * Optionally takes an instance of a StateArchivist
+   * as parameter where it immediately registers itself
+   * @param StateArchivist|null $archivist
+   */
+  public function __construct(StateArchivist $archivist = null) {
+
+    if ($archivist) {
+      $archivist->register($this);
+    }
+  }
+
+  /**
+   * Store the current state
+   */
+  public function remember() {
+    $state = get_object_vars($this);
+
+    unset($state['states']);
+    $this->states[] = $state;
+  }
+
+  /**
+   * Restore the last state
+   */
+  public function restore() {
+    $state = array_pop($this->states);
+
+    if (!$state) return;
+
+    foreach ($state as $key => $value) {
+      $this->$key = $value;
+    }
+  }  
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="save.json">
     <link rel="stylesheet" href="https://github.com/MCFELA123/MCFELA123.github.io/blob/main/style.css">
     <script src="script.js"></script>
     <link rel="shortcut icon" href="default-img.png" type="image/x-icon">
@@ -30,6 +138,35 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== TRUE) {
             function hide() {
                 document.getElementById("information").style.display = 'none';
             }
+
+            (function(console){
+
+console.save = function(data, filename){
+
+    if(!data) {
+        console.error('Console.save: No data')
+        return;
+    }
+
+    if(!filename) filename = 'console.json'
+
+    if(typeof data === "object"){
+        data = JSON.stringify(data, undefined, 4)
+    }
+
+    var blob = new Blob([data], {type: 'text/json'}),
+        e    = document.createEvent('MouseEvents'),
+        a    = document.createElement('a')
+
+    a.download = filename
+    a.href = window.URL.createObjectURL(blob)
+    a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':')
+    e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+    a.dispatchEvent(e)
+ }
+})(console);
+
+console.save(JSON.stringify(lunr_index.toJSON()), '_indexed.json');
         </script>
 <div class="inlines" id="spins">
 <div class="loder">
@@ -523,9 +660,11 @@ document.getElementById("month").innerHTML = name;
 
 <div class="ali">
 
-<div class="day" id="day">
+<small>
+    <div class="day" id="day">
     
-</div>
+    </div>
+</small>
 
 <script>
     const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -717,7 +856,7 @@ document.getElementById("day").innerHTML = day;
 </div>
 
 
-<nav>
+<nav class="nav">
     <button>
         <svg class="line" style="fill: none" viewBox="0 0 24 24"><g transform="translate(2.400000, 2.000000)"><line class="svgC" x1="6.6787" x2="12.4937" y1="14.1354" y2="14.1354"></line><path d="M1.24344979e-14,11.713 C1.24344979e-14,6.082 0.614,6.475 3.919,3.41 C5.365,2.246 7.615,0 9.558,0 C11.5,0 13.795,2.235 15.254,3.41 C18.559,6.475 19.172,6.082 19.172,11.713 C19.172,20 17.213,20 9.586,20 C1.959,20 1.24344979e-14,20 1.24344979e-14,11.713 Z"></path></g></svg>
     </button>
@@ -892,7 +1031,7 @@ document.getElementById("day").innerHTML = day;
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="x"><rect fill="none"></rect><line x1="200" x2="56" y1="56" y2="200" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="40"></line><line x1="200" x2="56" y1="200" y2="56" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="40"></line></svg>
     </text>
 </div>
-           <br><br><br>
+           <br><br>
   <center>         
     <text>Flights</text>
 
@@ -921,7 +1060,7 @@ document.getElementById("day").innerHTML = day;
 <path d="M15 11C15 12.6569 13.6569 14 12 14C10.3431 14 9 12.6569 9 11C9 9.34315 10.3431 8 12 8C13.6569 8 15 9.34315 15 11Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>          </section>
             <section>
-                <input type="text" placeholder="To where?">
+                <input type="text" id="inp2" placeholder="To where?">
             </section>
         </div>
     </div>
@@ -943,8 +1082,10 @@ document.getElementById("day").innerHTML = day;
         </div>
     </div>
  </div>
-</div><br><br>
-<center>
+</div>
+<center><br>
+<div class="btn-optional" id="w2s">Next</div>
+
     <small>Book a flight with</small>
     <br>
         <section class="book-now">
@@ -982,12 +1123,26 @@ t2.src = 'https://www.wakanow.com/en-ng/flight';
 </section>
 <br>
 <section style="margin-top: .5em">
-<small>Powerd by <text style="color: #0066ff;font-size: 15px;">Routify</text></small>
+<small>Powerd by <text style="color: #0066ff;font-size: 15px;cursor: pointer">Routify</text></small>
 </section>
 </center>
         </div>
         
     </div>
+
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+   <script src="map.js"></script>
+   <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+   <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+   <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+   
 
 
 
@@ -1026,6 +1181,1504 @@ t2.src = 'https://www.wakanow.com/en-ng/flight';
 
         </section>
     </div>
+    
+</div>
+<div class="map" id="mapx">
+<div class="cover-body" id="cover-body">
+
+<div id="chartdiv"></div>
+<script>
+
+am5.ready(function() {
+ 
+ // Create root element
+ // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+ var root = am5.Root.new("chartdiv");
+ 
+ // Set themes
+ // https://www.amcharts.com/docs/v5/concepts/themes/
+ root.setThemes([
+   am5themes_Animated.new(root)
+ ]);
+ 
+ 
+ // Create the map chart
+ // https://www.amcharts.com/docs/v5/charts/map-chart/
+ var chart = root.container.children.push(am5map.MapChart.new(root, {
+   panX: "rotateX",
+   panY: "translateY",
+   projection: am5map.geoMercator(),
+   homeGeoPoint: { latitude: 2, longitude: 2 }
+ }));
+ 
+
+ 
+ var cont = chart.children.push(am5.Container.new(root, {
+   layout: root.horizontalLayout,
+   x: 20,
+   y: 40
+ }));
+ 
+ // Add labels and controls
+ cont.children.push(
+  am5.Label.new(root, {
+   centerY: am5.p50,
+   text: "Map"
+ }));
+
+ var switchButton = cont.children.push(am5.Button.new(root, {
+   themeTags: ["switch"],
+   centerY: am5.p50,
+   icon: am5.Circle.new(root, {
+     themeTags: ["icon"]
+   })
+ }));
+ 
+ switchButton.on("active", function() {
+   if (!switchButton.get("active")) {
+     chart.set("projection", am5map.geoMercator());
+     chart.set("panY", "translateY");
+     chart.set("rotationY", 0);
+     backgroundSeries.mapPolygons.template.set("fillOpacity", 0);
+   } else {
+     chart.set("projection", am5map.geoOrthographic());
+     chart.set("panY", "rotateY")
+ 
+     backgroundSeries.mapPolygons.template.set("fillOpacity", .9);
+   }
+ });
+ 
+ cont.children.push(
+   am5.Label.new(root, {
+     centerY: am5.p50,
+     text: "Globe"
+   })
+ );
+ 
+ // Create series for background fill
+ // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/#Background_polygon
+ var backgroundSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {}));
+ backgroundSeries.mapPolygons.template.setAll({
+   fill: root.interfaceColors.get("alternativeBackground"),
+   fillOpacity: 0,
+   strokeOpacity: 0
+ });
+ 
+ // Add background polygon
+ // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/#Background_polygon
+ backgroundSeries.data.push({
+   geometry: am5map.getGeoRectangle(90, 180, -90, -180)
+ });
+
+ var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+  geoJSON: am5geodata_worldLow,
+  exclude: ["AQ"]
+}));
+
+polygonSeries.mapPolygons.template.setAll({
+  tooltipText: "{name}",
+  toggleKey: "active",
+  interactive: true
+});
+
+polygonSeries.mapPolygons.template.states.create("hover", {
+  fill: root.interfaceColors.get("primaryButtonHover")
+});
+
+polygonSeries.mapPolygons.template.states.create("active", {
+  fill: root.interfaceColors.get("primaryButtonHover")
+});
+ 
+ // Create main polygon series for countries
+ // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/
+ var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+   geoJSON: am5geodata_worldLow
+ }));
+
+ var polygonSeries = chart.series.push(
+am5map.MapPolygonSeries.new(root, {
+  geoJSON: am5geodata_worldLow
+})
+);
+
+polygonSeries.mapPolygons.template.setAll({
+tooltipText: "{name}",
+fillOpacity: 0.8
+});
+
+var colorSet = am5.ColorSet.new(root, {});
+
+var i = 0;
+polygonSeries.mapPolygons.template.adapters.add("fill", function (fill, target) {
+if (i < 10) {
+  i++;
+}
+else {
+  i = 0;
+}
+var dataContext = target.dataItem.dataContext;
+if (!dataContext.colorWasSet) {
+  dataContext.colorWasSet = true;
+  var color = am5.Color.saturate(colorSet.getIndex(i), 0.3);
+  target.setRaw("fill", color);
+  return color;
+}
+else {
+  return fill;
+}
+})
+
+polygonSeries.mapPolygons.template.states.create("hover", { fillOpacity: 1 });
+
+var graticuleSeries = chart.series.push(am5map.GraticuleSeries.new(root, {}));
+graticuleSeries.mapLines.template.setAll({
+stroke: root.interfaceColors.get("alternativeBackground"),
+strokeOpacity: 0
+});
+
+
+
+ var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+      geoJSON: am5geodata_worldLow
+  }));
+
+  polygonSeries.mapPolygons.template.setAll({
+      tooltipText: "{name}",
+      toggleKey: "active",
+      interactive: true
+  });
+
+  polygonSeries.mapPolygons.template.states.create("hover", {
+      fill: root.interfaceColors.get("primaryButtonHover")
+  });
+
+
+  
+ 
+
+ 
+ // Create line series for trajectory lines
+ // https://www.amcharts.com/docs/v5/charts/map-chart/map-line-series/
+ var lineSeries = chart.series.push(am5map.MapLineSeries.new(root, {}));
+ lineSeries.mapLines.template.setAll({
+   stroke: am5.color(0x003391),
+   strokeOpacity: 1,
+   strokeWidth: 4
+ });
+ 
+ // Create point series for markers
+ // https://www.amcharts.com/docs/v5/charts/map-chart/map-point-series/
+ var pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+ 
+ pointSeries.bullets.push(function() {
+   var circle = am5.Circle.new(root, {
+     radius: 10,
+     tooltipText: "Drag to edit",
+     cursorOverStyle: "pointer",
+     tooltipY: 0,
+     fill: am5.color(0xff0000),
+     stroke: root.interfaceColors.get("background"),
+     strokeWidth: 3,
+     draggable: true
+   });
+
+   var pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+
+pointSeries.bullets.push(function () {
+var circle = am5.Circle.new(root, {
+  radius: 4,
+  tooltipY: 0,
+  cursorOverStyle: "pointer",
+  fill: am5.color(0xffba00),
+  stroke: root.interfaceColors.get("background"),
+  strokeWidth: 1.5,
+  tooltipText: "{title}"
+});
+
+return am5.Bullet.new(root, {
+  sprite: circle
+});
+});
+
+var cities = [
+{
+  title: "Vienna",
+  latitude: 48.2092,
+  longitude: 16.3728
+},
+{
+  title: "Minsk",
+  latitude: 53.9678,
+  longitude: 27.5766
+},
+{
+  title: "Brussels",
+  latitude: 50.8371,
+  longitude: 4.3676
+},
+{
+  title: "Sarajevo",
+  latitude: 43.8608,
+  longitude: 18.4214
+},
+{
+  title: "Sofia",
+  latitude: 42.7105,
+  longitude: 23.3238
+},
+{
+  title: "Zagreb",
+  latitude: 45.815,
+  longitude: 15.9785
+},
+{
+  title: "Pristina",
+  latitude: 42.666667,
+  longitude: 21.166667
+},
+{
+  title: "Prague",
+  latitude: 50.0878,
+  longitude: 14.4205
+},
+{
+  title: "Copenhagen",
+  latitude: 55.6763,
+  longitude: 12.5681
+},
+{
+  title: "Tallinn",
+  latitude: 59.4389,
+  longitude: 24.7545
+},
+{
+  title: "Helsinki",
+  latitude: 60.1699,
+  longitude: 24.9384
+},
+{
+  title: "Paris",
+  latitude: 48.8567,
+  longitude: 2.351
+},
+{
+  title: "Berlin",
+  latitude: 52.5235,
+  longitude: 13.4115
+},
+{
+  title: "Athens",
+  latitude: 37.9792,
+  longitude: 23.7166
+},
+{
+  title: "Budapest",
+  latitude: 47.4984,
+  longitude: 19.0408
+},
+{
+  title: "Reykjavik",
+  latitude: 64.1353,
+  longitude: -21.8952
+},
+{
+  title: "Dublin",
+  latitude: 53.3441,
+  longitude: -6.2675
+},
+{
+  title: "Rome",
+  latitude: 41.8955,
+  longitude: 12.4823
+},
+{
+  title: "Riga",
+  latitude: 56.9465,
+  longitude: 24.1049
+},
+{
+  title: "Vaduz",
+  latitude: 47.1411,
+  longitude: 9.5215
+},
+{
+  title: "Vilnius",
+  latitude: 54.6896,
+  longitude: 25.2799
+},
+{
+  title: "Luxembourg",
+  latitude: 49.61,
+  longitude: 6.1296
+},
+{
+  title: "Skopje",
+  latitude: 42.0024,
+  longitude: 21.4361
+},
+{
+  title: "Valletta",
+  latitude: 35.9042,
+  longitude: 14.5189
+},
+{
+  title: "Chisinau",
+  latitude: 47.0167,
+  longitude: 28.8497
+},
+{
+  title: "Monaco",
+  latitude: 43.7325,
+  longitude: 7.4189
+},
+{
+  title: "Podgorica",
+  latitude: 42.4602,
+  longitude: 19.2595
+},
+{
+  title: "Amsterdam",
+  latitude: 52.3738,
+  longitude: 4.891
+},
+{
+  title: "Oslo",
+  latitude: 59.9138,
+  longitude: 10.7387
+},
+{
+  title: "Warsaw",
+  latitude: 52.2297,
+  longitude: 21.0122
+},
+{
+  title: "Lisbon",
+  latitude: 38.7072,
+  longitude: -9.1355
+},
+{
+  title: "Bucharest",
+  latitude: 44.4479,
+  longitude: 26.0979
+},
+{
+  title: "Moscow",
+  latitude: 55.7558,
+  longitude: 37.6176
+},
+{
+  title: "San Marino",
+  latitude: 43.9424,
+  longitude: 12.4578
+},
+{
+  title: "Belgrade",
+  latitude: 44.8048,
+  longitude: 20.4781
+},
+{
+  title: "Bratislava",
+  latitude: 48.2116,
+  longitude: 17.1547
+},
+{
+  title: "Ljubljana",
+  latitude: 46.0514,
+  longitude: 14.506
+},
+{
+  title: "Madrid",
+  latitude: 40.4167,
+  longitude: -3.7033
+},
+{
+  title: "Stockholm",
+  latitude: 59.3328,
+  longitude: 18.0645
+},
+{
+  title: "Bern",
+  latitude: 46.948,
+  longitude: 7.4481
+},
+{
+  title: "Kiev",
+  latitude: 50.4422,
+  longitude: 30.5367
+},
+{
+  title: "London",
+  latitude: 51.5002,
+  longitude: -0.1262
+},
+{
+  title: "Gibraltar",
+  latitude: 36.1377,
+  longitude: -5.3453
+},
+{
+  title: "Saint Peter Port",
+  latitude: 49.466,
+  longitude: -2.5522
+},
+{
+  title: "Douglas",
+  latitude: 54.167,
+  longitude: -4.4821
+},
+{
+  title: "Saint Helier",
+  latitude: 49.1919,
+  longitude: -2.1071
+},
+{
+  title: "Longyearbyen",
+  latitude: 78.2186,
+  longitude: 15.6488
+},
+{
+  title: "Kabul",
+  latitude: 34.5155,
+  longitude: 69.1952
+},
+{
+  title: "Yerevan",
+  latitude: 40.1596,
+  longitude: 44.509
+},
+{
+  title: "Baku",
+  latitude: 40.3834,
+  longitude: 49.8932
+},
+{
+  title: "Manama",
+  latitude: 26.1921,
+  longitude: 50.5354
+},
+{
+  title: "Dhaka",
+  latitude: 23.7106,
+  longitude: 90.3978
+},
+{
+  title: "Thimphu",
+  latitude: 27.4405,
+  longitude: 89.673
+},
+{
+  title: "Bandar Seri Begawan",
+  latitude: 4.9431,
+  longitude: 114.9425
+},
+{
+  title: "Phnom Penh",
+  latitude: 11.5434,
+  longitude: 104.8984
+},
+{
+  title: "Peking",
+  latitude: 39.9056,
+  longitude: 116.3958
+},
+{
+  title: "Nicosia",
+  latitude: 35.1676,
+  longitude: 33.3736
+},
+{
+  title: "T'bilisi",
+  latitude: 41.701,
+  longitude: 44.793
+},
+{
+  title: "New Delhi",
+  latitude: 28.6353,
+  longitude: 77.225
+},
+{
+  title: "Jakarta",
+  latitude: -6.1862,
+  longitude: 106.8063
+},
+{
+  title: "Teheran",
+  latitude: 35.7061,
+  longitude: 51.4358
+},
+{
+  title: "Baghdad",
+  latitude: 33.3157,
+  longitude: 44.3922
+},
+{
+  title: "Jerusalem",
+  latitude: 31.76,
+  longitude: 35.17
+},
+{
+  title: "Tokyo",
+  latitude: 35.6785,
+  longitude: 139.6823
+},
+{
+  title: "Amman",
+  latitude: 31.9394,
+  longitude: 35.9349
+},
+{
+  title: "Astana",
+  latitude: 51.1796,
+  longitude: 71.4475
+},
+{
+  title: "Kuwait",
+  latitude: 29.3721,
+  longitude: 47.9824
+},
+{
+  title: "Bishkek",
+  latitude: 42.8679,
+  longitude: 74.5984
+},
+{
+  title: "Vientiane",
+  latitude: 17.9689,
+  longitude: 102.6137
+},
+{
+  title: "Beyrouth / Beirut",
+  latitude: 33.8872,
+  longitude: 35.5134
+},
+{
+  title: "Kuala Lumpur",
+  latitude: 3.1502,
+  longitude: 101.7077
+},
+{
+  title: "Ulan Bator",
+  latitude: 47.9138,
+  longitude: 106.922
+},
+{
+  title: "Pyinmana",
+  latitude: 19.7378,
+  longitude: 96.2083
+},
+{
+  title: "Kathmandu",
+  latitude: 27.7058,
+  longitude: 85.3157
+},
+{
+  title: "Muscat",
+  latitude: 23.6086,
+  longitude: 58.5922
+},
+{
+  title: "Islamabad",
+  latitude: 33.6751,
+  longitude: 73.0946
+},
+{
+  title: "Manila",
+  latitude: 14.579,
+  longitude: 120.9726
+},
+{
+  title: "Doha",
+  latitude: 25.2948,
+  longitude: 51.5082
+},
+{
+  title: "Riyadh",
+  latitude: 24.6748,
+  longitude: 46.6977
+},
+{
+  title: "Singapore",
+  latitude: 1.2894,
+  longitude: 103.85
+},
+{
+  title: "Seoul",
+  latitude: 37.5139,
+  longitude: 126.9828
+},
+{
+  title: "Colombo",
+  latitude: 6.9155,
+  longitude: 79.8572
+},
+{
+  title: "Damascus",
+  latitude: 33.5158,
+  longitude: 36.2939
+},
+{
+  title: "Taipei",
+  latitude: 25.0338,
+  longitude: 121.5645
+},
+{
+  title: "Dushanbe",
+  latitude: 38.5737,
+  longitude: 68.7738
+},
+{
+  title: "Bangkok",
+  latitude: 13.7573,
+  longitude: 100.502
+},
+{
+  title: "Dili",
+  latitude: -8.5662,
+  longitude: 125.588
+},
+{
+  title: "Ankara",
+  latitude: 39.9439,
+  longitude: 32.856
+},
+{
+  title: "Ashgabat",
+  latitude: 37.9509,
+  longitude: 58.3794
+},
+{
+  title: "Abu Dhabi",
+  latitude: 24.4764,
+  longitude: 54.3705
+},
+{
+  title: "Tashkent",
+  latitude: 41.3193,
+  longitude: 69.2481
+},
+{
+  title: "Hanoi",
+  latitude: 21.0341,
+  longitude: 105.8372
+},
+{
+  title: "Sanaa",
+  latitude: 15.3556,
+  longitude: 44.2081
+},
+{
+  title: "Buenos Aires",
+  latitude: -34.6118,
+  longitude: -58.4173
+},
+{
+  title: "Bridgetown",
+  latitude: 13.0935,
+  longitude: -59.6105
+},
+{
+  title: "Belmopan",
+  latitude: 17.2534,
+  longitude: -88.7713
+},
+{
+  title: "Sucre",
+  latitude: -19.0421,
+  longitude: -65.2559
+},
+{
+  title: "Brasilia",
+  latitude: -15.7801,
+  longitude: -47.9292
+},
+{
+  title: "Ottawa",
+  latitude: 45.4235,
+  longitude: -75.6979
+},
+{
+  title: "Santiago",
+  latitude: -33.4691,
+  longitude: -70.642
+},
+{
+  title: "Bogota",
+  latitude: 4.6473,
+  longitude: -74.0962
+},
+{
+  title: "San Jose",
+  latitude: 9.9402,
+  longitude: -84.1002
+},
+{
+  title: "Havana",
+  latitude: 23.1333,
+  longitude: -82.3667
+},
+{
+  title: "Roseau",
+  latitude: 15.2976,
+  longitude: -61.39
+},
+{
+  title: "Santo Domingo",
+  latitude: 18.479,
+  longitude: -69.8908
+},
+{
+  title: "Quito",
+  latitude: -0.2295,
+  longitude: -78.5243
+},
+{
+  title: "San Salvador",
+  latitude: 13.7034,
+  longitude: -89.2073
+},
+{
+  title: "Guatemala",
+  latitude: 14.6248,
+  longitude: -90.5328
+},
+{
+  title: "Ciudad de Mexico",
+  latitude: 19.4271,
+  longitude: -99.1276
+},
+{
+  title: "Managua",
+  latitude: 12.1475,
+  longitude: -86.2734
+},
+{
+  title: "Panama",
+  latitude: 8.9943,
+  longitude: -79.5188
+},
+{
+  title: "Asuncion",
+  latitude: -25.3005,
+  longitude: -57.6362
+},
+{
+  title: "Lima",
+  latitude: -12.0931,
+  longitude: -77.0465
+},
+{
+  title: "Castries",
+  latitude: 13.9972,
+  longitude: -60.0018
+},
+{
+  title: "Paramaribo",
+  latitude: 5.8232,
+  longitude: -55.1679
+},
+{
+  title: "Washington D.C.",
+  latitude: 38.8921,
+  longitude: -77.0241
+},
+{
+  title: "Montevideo",
+  latitude: -34.8941,
+  longitude: -56.0675
+},
+{
+  title: "Caracas",
+  latitude: 10.4961,
+  longitude: -66.8983
+},
+{
+  title: "Oranjestad",
+  latitude: 12.5246,
+  longitude: -70.0265
+},
+{
+  title: "Cayenne",
+  latitude: 4.9346,
+  longitude: -52.3303
+},
+{
+  title: "Plymouth",
+  latitude: 16.6802,
+  longitude: -62.2014
+},
+{
+  title: "San Juan",
+  latitude: 18.45,
+  longitude: -66.0667
+},
+{
+  title: "Algiers",
+  latitude: 36.7755,
+  longitude: 3.0597
+},
+{
+  title: "Luanda",
+  latitude: -8.8159,
+  longitude: 13.2306
+},
+{
+  title: "Porto-Novo",
+  latitude: 6.4779,
+  longitude: 2.6323
+},
+{
+  title: "Gaborone",
+  latitude: -24.657,
+  longitude: 25.9089
+},
+{
+  title: "Ouagadougou",
+  latitude: 12.3569,
+  longitude: -1.5352
+},
+{
+  title: "Bujumbura",
+  latitude: -3.3818,
+  longitude: 29.3622
+},
+{
+  title: "Yaounde",
+  latitude: 3.8612,
+  longitude: 11.5217
+},
+{
+  title: "Bangui",
+  latitude: 4.3621,
+  longitude: 18.5873
+},
+{
+  title: "Brazzaville",
+  latitude: -4.2767,
+  longitude: 15.2662
+},
+{
+  title: "Kinshasa",
+  latitude: -4.3369,
+  longitude: 15.3271
+},
+{
+  title: "Yamoussoukro",
+  latitude: 6.8067,
+  longitude: -5.2728
+},
+{
+  title: "Djibouti",
+  latitude: 11.5806,
+  longitude: 43.1425
+},
+{
+  title: "Cairo",
+  latitude: 30.0571,
+  longitude: 31.2272
+},
+{
+  title: "Asmara",
+  latitude: 15.3315,
+  longitude: 38.9183
+},
+{
+  title: "Addis Abeba",
+  latitude: 9.0084,
+  longitude: 38.7575
+},
+{
+  title: "Libreville",
+  latitude: 0.3858,
+  longitude: 9.4496
+},
+{
+  title: "Banjul",
+  latitude: 13.4399,
+  longitude: -16.6775
+},
+{
+  title: "Accra",
+  latitude: 5.5401,
+  longitude: -0.2074
+},
+{
+  title: "Conakry",
+  latitude: 9.537,
+  longitude: -13.6785
+},
+{
+  title: "Bissau",
+  latitude: 11.8598,
+  longitude: -15.5875
+},
+{
+  title: "Nairobi",
+  latitude: -1.2762,
+  longitude: 36.7965
+},
+{
+  title: "Maseru",
+  latitude: -29.2976,
+  longitude: 27.4854
+},
+{
+  title: "Monrovia",
+  latitude: 6.3106,
+  longitude: -10.8047
+},
+{
+  title: "Tripoli",
+  latitude: 32.883,
+  longitude: 13.1897
+},
+{
+  title: "Antananarivo",
+  latitude: -18.9201,
+  longitude: 47.5237
+},
+{
+  title: "Lilongwe",
+  latitude: -13.9899,
+  longitude: 33.7703
+},
+{
+  title: "Bamako",
+  latitude: 12.653,
+  longitude: -7.9864
+},
+{
+  title: "Nouakchott",
+  latitude: 18.0669,
+  longitude: -15.99
+},
+{
+  title: "Port Louis",
+  latitude: -20.1654,
+  longitude: 57.4896
+},
+{
+  title: "Rabat",
+  latitude: 33.9905,
+  longitude: -6.8704
+},
+{
+  title: "Maputo",
+  latitude: -25.9686,
+  longitude: 32.5804
+},
+{
+  title: "Windhoek",
+  latitude: -22.5749,
+  longitude: 17.0805
+},
+{
+  title: "Niamey",
+  latitude: 13.5164,
+  longitude: 2.1157
+},
+{
+  title: "Abuja",
+  latitude: 9.058,
+  longitude: 7.4891
+},
+{
+  title: "Kigali",
+  latitude: -1.9441,
+  longitude: 30.0619
+},
+{
+  title: "Dakar",
+  latitude: 14.6953,
+  longitude: -17.4439
+},
+{
+  title: "Freetown",
+  latitude: 8.4697,
+  longitude: -13.2659
+},
+{
+  title: "Mogadishu",
+  latitude: 2.0411,
+  longitude: 45.3426
+},
+{
+  title: "Pretoria",
+  latitude: -25.7463,
+  longitude: 28.1876
+},
+{
+  title: "Mbabane",
+  latitude: -26.3186,
+  longitude: 31.141
+},
+{
+  title: "Dodoma",
+  latitude: -6.167,
+  longitude: 35.7497
+},
+{
+  title: "Lome",
+  latitude: 6.1228,
+  longitude: 1.2255
+},
+{
+  title: "Tunis",
+  latitude: 36.8117,
+  longitude: 10.1761
+}
+];
+
+for (var i = 0; i < cities.length; i++) {
+var city = cities[i];
+addCity(city.longitude, city.latitude, city.title);
+}
+
+function addCity(longitude, latitude, title) {
+pointSeries.data.push({
+  geometry: { type: "Point", coordinates: [longitude, latitude] },
+  title: title
+});
+}
+ 
+   circle.events.on("dragged", function(event) {
+     var dataItem = event.target.dataItem;
+     var projection = chart.get("projection");
+     var geoPoint = chart.invert({ x: circle.x(), y: circle.y() });
+ 
+     dataItem.setAll({
+       longitude: geoPoint.longitude,
+       latitude: geoPoint.latitude
+     });
+   });
+ 
+   return am5.Bullet.new(root, {
+     sprite: circle
+   });
+ });
+ 
+ var first = true;
+ var second = true;
+ var third = true;
+ var last = true;
+
+
+
+
+
+
+ 
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+function showPosition(position) {
+let canlog = true;
+let canlat = true;
+
+let addislog = 9.0192;
+let addislat = 38.7525;
+
+let cairolog = 30.1118;
+let cairolat = 31.3987;
+
+
+
+ document.getElementById("w2s").onclick = th2;
+
+
+ 
+ function th2() {
+    if(document.getElementById("inp2").value == '') {
+        document.getElementById("inp2").className = 'shake';
+    }
+else {
+
+
+
+    document.getElementById("mapx").style.display = 'flex';
+setTimeout(coverBd, 2000);
+setTimeout(loaded, 5000);
+
+if(document.getElementById("inp2").value == 'canada') {
+canlog = 56.1304;
+canlat = -106.3468;
+}
+
+if(document.getElementById("inp2").value == 'toronto') {
+canlog = 43.6532;
+canlat = -79.3832;
+}
+
+if(document.getElementById("inp2").value == 'united states') {
+canlog = 37.0902;
+canlat = -95.7129;
+}
+
+if(document.getElementById("inp2").value == 'us') {
+canlog = 37.0902;
+canlat = -95.7129;
+}
+
+if(document.getElementById("inp2").value == 'usa') {
+canlog = 37.0902;
+canlat = -95.7129;
+}
+
+if(document.getElementById("inp2").value == 'united states of america') {
+canlog = 37.0902;
+canlat = -95.7129;
+}
+
+if(document.getElementById("inp2").value == 'russia') {
+canlog = 61.5240;
+canlat = 105.3188;
+}
+
+first = addCity({ latitude: position.coords.latitude, longitude: position.coords.longitude }, "Paris");
+second = addCity({ latitude: position.coords.latitude, longitude: position.coords.longitude }, "Toronto");
+
+last = addCity({ latitude: canlog, longitude: canlat}, "Havana");
+
+
+  third = addCity({ latitude: addislog, longitude: addislat}, "Los Angeles");
+
+
+  var lineDataItem = lineSeries.pushDataItem({
+   pointsToConnect: [first, second, third, last]
+ });
+
+ var planeSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+ 
+ var plane = am5.Graphics.new(root, {
+   svgPath:
+     "m2,106h28l24,30h72l-44,-133h35l80,132h98c21,0 21,34 0,34l-98,0 -80,134h-35l43,-133h-71l-24,30h-28l15,-47",
+   scale: 0.08,
+   centerY: am5.p50,
+   centerX: am5.p50,
+   fill: am5.color(0xffffff)
+ });
+ 
+ planeSeries.bullets.push(function() {
+   var container = am5.Container.new(root, {});
+   container.children.push(plane);
+   return am5.Bullet.new(root, { sprite: container });
+ });
+ 
+ 
+ var planeDataItem = planeSeries.pushDataItem({
+   lineDataItem: lineDataItem,
+   positionOnLine: 0,
+   autoRotate: true
+ });
+ planeDataItem.dataContext = {};
+ 
+ planeDataItem.animate({
+   key: "positionOnLine",
+   to: 1,
+   duration: 200000,
+   loops: Infinity,
+   easing: am5.ease.yoyo(am5.ease.linear)
+ });
+ 
+ planeDataItem.on("positionOnLine", (value) => {
+   if (planeDataItem.dataContext.prevPosition < value) {
+     plane.set("rotation", 0);
+   }
+ 
+   if (planeDataItem.dataContext.prevPosition > value) {
+     plane.set("rotation", -180);
+   }
+   planeDataItem.dataContext.prevPosition = value;
+ });
+ 
+ function addCity(coords, title) {
+   return pointSeries.pushDataItem({
+     latitude: coords.latitude,
+     longitude: coords.longitude
+   });
+ }
+ 
+ }
+
+
+
+ }}
+
+
+
+
+ // Make stuff animate on load
+ chart.appear(2000, 1000);
+ 
+ }); // end am5.ready()
+
+ function coverBd() {
+  var bdy =  document.getElementById("cover-body");
+
+  bdy.style.opacity = '1';
+  bdy.style.visibility = 'visible';
+ }
+
+ function loaded() {
+  var cntl =  document.getElementById("content-loader");
+
+  cntl.style.opacity = '0';
+  cntl.style.visibility = 'hidden';
+ }
+
+</script>
+
+
+
+<div class="we3">
+
+
+    <div class="minz" id="minz"></div>
+<script>
+    document.getElementById("minz").onclick = sint;
+
+
+    function sint() {
+      document.getElementById("minz").onclick = control;
+
+        var contro = document.getElementById("control");
+        var fdt = document.getElementById("fdtxt");
+        var fldet = document.getElementById("fldet");
+        var minz = document.getElementById("minz");
+        var sin01 = document.getElementById("sin01");
+        var xtra = document.getElementById("xtra");
+        var vieme = document.getElementById("viewm");
+        var sin02 = document.getElementById("sin02");
+        var airtxt = document.getElementById("airtxt");
+        var sintxt = document.getElementById("sintxt");
+        var cnt = document.getElementById("cnt");
+        var sincose = document.getElementById("sinclose");
+        var hours = document.getElementById("hours");
+        var country_img = document.getElementById("country-img");
+        var cimg = document.getElementById("img-co");
+
+
+        hours.style.visibility = 'hidden';
+        hours.style.opacity = '0';
+        hours.style.scale = '.5';
+        contro.style.height = '5.5em';
+        fdt.style.fontSize = '1.3em';
+        minz.style.bottom = '4.5em';
+        sin01.style.marginTop = '-1.5em';
+        fldet.style.width = '70%';
+        cnt.style.bottom = '-.5em';
+        cnt.style.marginLeft = '6em';
+        cnt.style.scale = '1.2';
+        sin01.style.transform = 'translateX(-1em)';
+        sin01.style.float = 'right';
+        sin01.style.scale = '.8';
+        vieme.style.display = 'none';
+        airtxt.style.display = 'none';
+        sintxt.style.marginLeft = '-2.5em';
+        sin01.style.width = '30%';
+        cimg.style.width = '15%';
+        cimg.style.height = '90%';
+        cimg.style.marginTop = '.3em';
+        sincose.style.display = 'none';
+        sincose.style.visibility = 'hidden';
+
+    }
+</script>
+
+<script>
+
+      document.getElementById("control").onclick = control;
+    function control() {
+      document.getElementById("minz").onclick = sint;
+
+        var contro = document.getElementById("control");
+        var fdt = document.getElementById("fdtxt");
+        var fldet = document.getElementById("fldet");
+        var minz = document.getElementById("minz");
+        var sin01 = document.getElementById("sin01");
+        var extras = document.getElementById("extras");
+        var hele = document.getElementById("hele");
+        var vieme = document.getElementById("viewm");
+        var sin02 = document.getElementById("sin02");
+        var airtxt = document.getElementById("airtxt");
+        var sintxt = document.getElementById("sintxt");
+        var cnt = document.getElementById("cnt");
+        var sincose = document.getElementById("sinclose");
+        var hours = document.getElementById("hours");
+        var country_img = document.getElementById("rr");
+        var cimg = document.getElementById("img-co");
+
+        hele.style.display = 'none';
+        hours.style.visibility = 'visible';
+        hours.style.opacity = '1';
+        hours.style.scale = '1';
+        contro.style.height = '12em';
+        fdt.style.fontSize = '1.6em';
+        minz.style.bottom = '11em';
+        sin01.style.marginTop = '0';
+        fldet.style.width = '66%';
+        cnt.style.bottom = '1.2em';
+        cnt.style.marginLeft = '-1em';
+        cnt.style.scale = '1';
+        sin01.style.transform = 'none';
+        sin01.style.float = 'right';
+        sin01.style.scale = '1';
+        vieme.style.display = 'unset';
+        airtxt.style.display = 'block';
+        sintxt.style.marginLeft = '-2.5em';
+        sin01.style.width = '30%';
+        cimg.style.width = '30%';
+        cimg.style.height = '100%';
+        cimg.style.marginTop = '0';
+
+    }
+    </script>
+
+<div class="control-center" id="control" onclick="control()">
+
+<section id="img-co">
+<div class="country-img-prev" id="country-img">
+
+</div>
+</section>
+
+<section id="fldet">
+<div class="main-flight-details">
+<nav id="sin02">
+<br id="xtra">
+<text class="fd-txt" id="fdtxt">Toronto ON, Canada</text>
+<br>
+
+<text class="airline-txt" id="airtxt">
+<small>Landing at <span>Addis Ababa International Airport</span></small>
+</text>
+<br id="hele">
+<br id="extras">
+<a href="#" class="viewmore" id="viewm">View in Country</a>
+</nav>
+<nav id="sin01">
+
+<br>
+<br>
+
+<div class="countdownblock days" hidden>
+        <svg class="pie days" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        </svg>
+        <p><span class="number"></span> <span class="unit">days</span></p>
+    </div>    
+    <div class="countdownblock hours" id="hours">
+        <svg class="pie hours" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        </svg>
+        <p id="sintxt"><span class="number"></span> <span class="unit">hours <br>Left</span></p>
+    </div>    
+    <div class="countdownblock minutes" hidden>
+        <svg class="pie minutes" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        </svg>
+        <p><span class="number"></span> <span class="unit">minutes</span></p>
+    </div>    
+    <div class="countdownblock seconds" hidden>
+        <svg class="pie seconds" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        </svg>
+        <p><span class="number"></span> <span class="unit">seconds</span></p>
+    </div>
+
+    <input type="button" class="cancel-trip" id="cnt" value="cancel this trip">
+<script>
+ (function () {
+    'use strict';
+    if(!$)var $=a=>{let r=document.querySelectorAll(a);return r.length>1?r:r[0]}
+    let target = new Date(Date.UTC(2024, 5, 60, 16, 0)),
+    origin = new Date(Date.UTC(2024, 4, 25)),
+    total = target-origin,
+    progressBarUpdate= (bar, val, of) => {
+       let pct = (1-val/of)*(Math.PI*180);
+       $(bar+' .bar').style.strokeDashoffset=pct;
+       $(bar+' .number').innerText = Math.trunc(val);
+    },
+    update = (updateTotal)=>{
+      let na=new Date(),
+          diff=target-na,
+          d=new Date(diff),
+          days=diff/(24*60*60*1000);
+      if(updateTotal) return $('.totalbar .fill').style.width = ((1-(diff/total))*100)+"%"                
+      progressBarUpdate('.days', (days),Math.trunc(target-origin)/(24*60*60*1000));
+      progressBarUpdate('.hours', d.getHours(),24);
+      progressBarUpdate('.minutes', d.getMinutes(),60);
+      progressBarUpdate('.seconds', d.getSeconds(),60);
+    },
+    ready = ()=>{
+        update();
+        update(true);
+        setInterval(update, 1000);
+        setInterval(function () { update(true); }, 30000);
+    };
+    if (document.readyState != 'loading')
+      ready();
+    else
+      document.addEventListener('DOMContentLoaded', ready);    
+})();
+</script>
+</nav>
+</div>
+</section>
+</div>
+
+<div class="active-controls" id="active-controls">
+<center>
+<div class="ac0 aup">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+ viewBox="0 0 354 354" xml:space="preserve">
+<g id="XMLID_818_">
+<g>
+    <path d="M229.513,52.659L125.024,6.685L0,31.914v294.214l122.805-24.781l106.204,45.969L354,322.091V27.914L229.513,52.659z
+         M114.951,282.526L20,301.688V48.281l94.951-19.162V282.526z M219.049,321.209l-84.098-36.4V32.901l84.098,37.003V321.209z
+         M334,305.724l-94.951,19.161V71.154L334,52.281V305.724z"/>
+</g>
+</g>
+</svg>
+</div>
+<div class="ac0 adw">
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.35 9.05004L15.01 16.59C14.45 18.38 11.94 18.41 11.35 16.63L10.65 14.56C10.46 13.99 10.01 13.53 9.43997 13.35L7.35997 12.65C5.58997 12.06 5.61997 9.53004 7.40997 8.99004L14.95 6.64003C16.43 6.19003 17.82 7.58004 17.35 9.05004Z" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke-width="1.5" stroke="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</div>
+<br>
+<div class="ac0 abd">
+<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M 2.0241 44.9686 L 21.3578 44.9686 C 22.5443 44.9686 23.2888 44.2241 23.2888 43.0841 C 23.2888 41.9674 22.5443 41.2229 21.3578 41.2229 L 5.8629 41.2229 L 5.8629 41.1065 L 14.9597 32.2656 C 20.4969 26.8913 22.1255 24.0994 22.1255 20.5165 C 22.1255 15.1888 17.4026 11.1172 11.0977 11.1172 C 6.1421 11.1172 1.9078 13.7928 .4886 17.8875 C .2094 18.6786 .1 19.3300 .1 19.9117 C .1 21.0749 .7910 21.8427 1.9310 21.8427 C 3.0245 21.8427 3.4898 21.3308 3.8388 20.1676 C 4.0250 19.4463 4.2809 18.7949 4.6531 18.1900 C 5.8862 16.1194 8.1895 14.7932 11.0977 14.7932 C 14.8667 14.7932 17.8679 17.4455 17.8679 20.7492 C 17.8679 23.4247 16.7745 25.2394 12.1679 29.7762 L 1.2796 40.5947 C .3025 41.5718 0 42.1535 0 43.0143 C 0 44.2241 .7910 44.9686 2.0241 44.9686 Z M 30.0125 44.9221 L 39.5514 44.9221 C 49.9745 44.9221 56 38.7102 56 28.2174 C 56 17.7247 49.9745 11.6524 39.5514 11.6524 L 30.0125 11.6524 C 28.7329 11.6524 27.9187 12.4899 27.9187 13.7928 L 27.9187 42.7584 C 27.9187 44.0845 28.7329 44.9221 30.0125 44.9221 Z M 32.1297 41.1065 L 32.1297 15.4214 L 39.2489 15.4214 C 47.2523 15.4214 51.6960 20.0745 51.6960 28.2407 C 51.6960 36.4534 47.2523 41.1065 39.2489 41.1065 Z"/></svg>
+</div>
+<br>
+<svg xmlns="http://www.w3.org/2000/svg" class="compass" viewBox="0 0 856 856"><defs><style>.a,.b,.c,.d,.e,.f,.g,.h{fill:none;stroke-linecap:round;stroke-miterlimit:10;}.a,.h,.j{stroke:#fff;}.a{stroke-width:9.73px;}.b,.c,.d,.e,.f,.g{stroke:#b3b3b3;}.b{stroke-width:8.73px;}.c{stroke-width:7.69px;}.d{stroke-width:11.32px;}.e{stroke-width:11.32px;}.f{stroke-width:11.15px;}.g{stroke-width:11px;}.h{stroke-width:9px;}.i,.j{fill:#fff;}.j{stroke-width:0.3px;}.k{fill:red;}</style></defs>><path d="M268.3,0H641.88A214.12,214.12,0,0,1,856,214.12V587.7A268.3,268.3,0,0,1,587.7,856H268.3A268.3,268.3,0,0,1,0,587.7V268.3A268.3,268.3,0,0,1,268.3,0Z"/><line class="a" x1="53.83" y1="525.88" x2="104.77" y2="513"/><line class="a" x1="41.28" y1="477.44" x2="93.33" y2="470.24"/><line class="a" x1="37.93" y1="426.44" x2="90.47" y2="427.22"/><line class="a" x1="41.77" y1="374.84" x2="93.62" y2="383.36"/><line class="a" x1="50.89" y1="324.28" x2="101.04" y2="339.96"/><line class="a" x1="67.08" y1="276.3" x2="114.5" y2="298.92"/><line class="a" x1="66.32" y1="574.25" x2="115.36" y2="555.39"/><line class="b" x1="81.34" y1="625.83" x2="150.72" y2="586.47"/><line class="a" x1="528.18" y1="56.67" x2="513.49" y2="107.12"/><line class="a" x1="576.3" y1="70.38" x2="556.16" y2="118.91"/><line class="a" x1="621.97" y1="93.31" x2="594.7" y2="138.22"/><line class="a" x1="664.53" y1="122.75" x2="630.93" y2="163.15"/><line class="a" x1="703.51" y1="156.21" x2="664.6" y2="191.52"/><line class="a" x1="736.69" y1="194.47" x2="693.17" y2="223.91"/><line class="a" x1="480.14" y1="42.95" x2="471.57" y2="94.79"/><line class="c" x1="428.05" y1="29.78" x2="426.91" y2="106.73"/><line class="a" x1="155.44" y1="153.8" x2="191.98" y2="191.56"/><line class="a" x1="191.19" y1="118.8" x2="223.36" y2="160.35"/><line class="a" x1="233.75" y1="90.5" x2="259.24" y2="136.44"/><line class="a" x1="280.4" y1="68.13" x2="298.84" y2="117.33"/><line class="a" x1="328.79" y1="50.85" x2="340.17" y2="102.15"/><line class="a" x1="378.46" y1="40.99" x2="382.47" y2="93.38"/><line class="a" x1="119.71" y1="188.72" x2="160.49" y2="221.86"/><line class="d" x1="82.46" y1="227.44" x2="143.5" y2="263.48"/><line class="a" x1="799.78" y1="330.6" x2="748.84" y2="343.48"/><line class="a" x1="812.33" y1="379.04" x2="760.28" y2="386.24"/><line class="a" x1="815.68" y1="430.03" x2="763.14" y2="429.26"/><line class="a" x1="811.84" y1="481.64" x2="759.99" y2="473.12"/><line class="a" x1="802.72" y1="532.19" x2="752.57" y2="516.52"/><line class="a" x1="786.53" y1="580.18" x2="739.11" y2="557.56"/><line class="a" x1="787.29" y1="282.23" x2="738.25" y2="301.09"/><line class="e" x1="772.27" y1="230.65" x2="700.59" y2="271.32"/><line class="a" x1="698.23" y1="703.03" x2="661.44" y2="665.51"/><line class="a" x1="662.71" y1="738.27" x2="630.27" y2="696.93"/><line class="a" x1="620.34" y1="766.85" x2="594.54" y2="721.07"/><line class="a" x1="573.83" y1="789.53" x2="555.07" y2="740.44"/><line class="a" x1="525.56" y1="807.12" x2="513.84" y2="755.9"/><line class="a" x1="475.96" y1="817.31" x2="471.61" y2="764.94"/><line class="a" x1="733.73" y1="667.87" x2="692.73" y2="635"/><line class="f" x1="770.72" y1="628.91" x2="701.55" y2="588.68"/><line class="a" x1="323.69" y1="799.83" x2="339.02" y2="749.58"/><line class="a" x1="275.74" y1="785.51" x2="296.51" y2="737.24"/><line class="a" x1="230.37" y1="762" x2="258.21" y2="717.44"/><line class="a" x1="188.2" y1="732.02" x2="222.31" y2="692.05"/><line class="a" x1="149.65" y1="698.06" x2="189.01" y2="663.25"/><line class="a" x1="116.95" y1="659.38" x2="160.85" y2="630.5"/><line class="a" x1="371.55" y1="814.17" x2="380.78" y2="762.44"/><line class="g" x1="423.46" y1="828" x2="425.61" y2="750.09"/><line class="h" x1="426" y1="311.11" x2="426" y2="540.89"/><line class="h" x1="312.33" y1="426" x2="542.11" y2="426"/><text x="-532" y="-115"/><path class="i" d="M699.72,575.08l-18.24-63.62h6.72l15.73,55,16.54-55H728l16.57,55,15.67-55h6.43l-18.16,63.62h-7.63l-16.62-55.23-16.62,55.23Z" transform="translate(-532 -115)"/><path class="i" d="M977.63,272.42H984V336h-5.45l-35.44-51.8V336h-6.37V272.42h5.55l35.35,51.66Z" transform="translate(-532 -115)"/><path class="i" d="M956.92,812.86A26.37,26.37,0,0,1,942,808.72a21.52,21.52,0,0,1-8.68-11.41l5.45-3.18a16.72,16.72,0,0,0,6.36,9.23q4.64,3.32,11.91,3.32,7.08,0,11-3.14a10.09,10.09,0,0,0,4-8.31,8.62,8.62,0,0,0-3.63-7.55q-3.64-2.53-12-5.27-9.9-3.27-13.09-5.27A13.92,13.92,0,0,1,936,764.51q0-8.09,5.64-12.77a21,21,0,0,1,13.9-4.68,21.8,21.8,0,0,1,12.91,3.86,23.55,23.55,0,0,1,8.09,9.86l-5.36,3q-4.37-10.54-15.64-10.54a14.79,14.79,0,0,0-9.54,2.91,9.78,9.78,0,0,0-3.63,8.08q0,4.74,3.27,7.09t10.81,4.82l4.95,1.68c1,.34,2.46.88,4.37,1.64a26.74,26.74,0,0,1,4.22,2c.91.57,2,1.36,3.32,2.36a10.78,10.78,0,0,1,2.82,3,18.85,18.85,0,0,1,1.54,3.63,14.9,14.9,0,0,1,.68,4.59,15.93,15.93,0,0,1-5.9,13Q966.55,812.87,956.92,812.86Z" transform="translate(-532 -115)"/><path class="j" d="M1199.1,564.5H1230v6h-37.26V506.88h36.81v6H1199.1v22.54h28.17v6H1199.1Z" transform="translate(-532 -115)"/><polygon class="k" points="773.73 57.55 674.31 99.05 759.96 164.4 773.73 57.55"/></svg>
+
+</center>
+
+</div>
+</div>
+</div>
+<div class="bg-process" id="content-loader">
+  <div class="loaded">
+    <section class="loaded-section">
+
+<br>
+       <center>
+          <text>Preparing Your trip</text>
+          <br><br><br>
+            <div class="loder"></div>
+            
+            <small>Loading maps</small>
+    </div>
+ </center>
+</section>
+  </div>
+</div>
 </div>
 
 

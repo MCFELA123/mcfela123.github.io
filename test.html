@@ -6,19 +6,128 @@
     <title>Document</title>
 </head>
 <body>
+<style>
     
-    <style>
-iframe {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-        </style>
 
-<center>
-  <iframe src="https://www.wakanow.com/en-ng/flight/listings/M6E5B5knd97Ry5LR45QiPw" frameborder="0"></iframe>
-</center>
+    body {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: 0;
+    
+        justify-content: center;
+    background-color: #111;
+    color: #eee;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+.pie {
+    width: 200px;
+    height: 200px;
+    transform: rotate(-90deg);
+}
+.pie .bar {
+    stroke-dashoffset: 0;
+    stroke-width: .7em;
+    transition: stroke-dashoffset 0.5s linear;
+}
+.pie .bg {
+    stroke-width: .7em;
+    stroke: #333;
+}
+.days .bar {  stroke: #F8E3E3; }
+.hours .bar {  stroke: #EDF8E3;  }
+.minutes .bar {  stroke: #E3F8F8;  }
+.seconds .bar {  stroke: #EDE3F8;  }
+.countdownblock { float: left; margin: 0 auto; }
+.countdownblock p { width: 100%; margin: -5em auto; text-align: center; font-size: 1.5em; }
+.totalbar {
+    width: 95%;
+    margin: 25px auto;
+    height: 20px;
+    background-color: #333;
+    padding: 2px;
+    border-radius: 7px;
+}
+
+
+.wee {
+    font-size: 2em;
+}
+
+
+</style>
+
+
+    <div class="countdownblock days" hidden>
+        <svg class="pie days" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        </svg>
+        <p><span class="number"></span> <span class="unit">days</span></p>
+    </div>    
+    <div class="countdownblock hours">
+        <svg class="pie hours" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        <text class="wee">qe</text>
+        
+        </svg>
+        <p><span class="number"></span> <span class="unit">hours</span></p>
+    </div>    
+    <div class="countdownblock minutes" hidden>
+        <svg class="pie minutes" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        </svg>
+        <p><span class="number"></span> <span class="unit">minutes</span></p>
+    </div>    
+    <div class="countdownblock seconds" hidden>
+        <svg class="pie seconds" viewPort="0 0 100 100">
+          <circle class="bg" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+          <circle class="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+        </svg>
+        <p><span class="number"></span> <span class="unit">seconds</span></p>
+    </div>
+
+        
 </body>
 </html>
+
+<script>
+ (function () {
+    'use strict';
+    if(!$)var $=a=>{let r=document.querySelectorAll(a);return r.length>1?r:r[0]}
+    let target = new Date(Date.UTC(2024, 5, 60, 16, 0)),
+    origin = new Date(Date.UTC(2024, 4, 25)),
+    total = target-origin,
+    progressBarUpdate= (bar, val, of) => {
+       let pct = (1-val/of)*(Math.PI*180);
+       $(bar+' .bar').style.strokeDashoffset=pct;
+       $(bar+' .number').innerText = Math.trunc(val);
+    },
+    update = (updateTotal)=>{
+      let na=new Date(),
+          diff=target-na,
+          d=new Date(diff),
+          days=diff/(24*60*60*1000);
+      if(updateTotal) return $('.totalbar .fill').style.width = ((1-(diff/total))*100)+"%"                
+      progressBarUpdate('.days', (days),Math.trunc(target-origin)/(24*60*60*1000));
+      progressBarUpdate('.hours', d.getHours(),24);
+      progressBarUpdate('.minutes', d.getMinutes(),60);
+      progressBarUpdate('.seconds', d.getSeconds(),60);
+    },
+    ready = ()=>{
+        update();
+        update(true);
+        setInterval(update, 1000);
+        setInterval(function () { update(true); }, 30000);
+    };
+    if (document.readyState != 'loading')
+      ready();
+    else
+      document.addEventListener('DOMContentLoaded', ready);    
+})();
+</script>
